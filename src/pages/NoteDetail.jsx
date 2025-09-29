@@ -34,6 +34,9 @@ const NoteDetail = () => {
 
   return (
     <div className="note-detail-page">
+      <div className="note-detail__toolbar">
+        <Link to="/notes" className="back-button">← Kembali</Link>
+      </div>
       <h2>{note.title}</h2>
       <p className="note-detail__date">{formatDate(note.createdAt)}</p>
       <div className="note-detail__body">{parser(note.body)}</div>
@@ -44,7 +47,6 @@ const NoteDetail = () => {
         ) : (
           <button onClick={handleArchive} className="action">Arsipkan</button>
         )}
-        <Link to="/notes" className="action">Kembali</Link>
       </div>
     </div>
   );

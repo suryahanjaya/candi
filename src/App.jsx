@@ -6,6 +6,8 @@ import ArchivedNotes from './pages/ArchivedNotes';
 import NoteDetail from './pages/NoteDetail';
 import AddNote from './pages/AddNote';
 import NotFound from './pages/NotFound';
+import BottomNav from './components/BottomNav';
+import FloatingActionButton from './components/FloatingActionButton';
 
 function App() {
   return (
@@ -13,7 +15,7 @@ function App() {
       <Router>
         <div className="app-container">
           <header>
-            <h1>Aplikasi Catatan</h1>
+            <h1>Notes</h1>
           </header>
           <main>
             <Routes>
@@ -25,6 +27,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
+          <BottomNav />
+          <FloatingActionButton />
         </div>
       </Router>
     </NotesProvider>

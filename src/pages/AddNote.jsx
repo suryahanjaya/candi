@@ -33,6 +33,7 @@ const AddNote = () => {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Judul catatan"
             required
+            autoFocus
           />
         </div>
         <div className="input-group">
@@ -45,10 +46,6 @@ const AddNote = () => {
             onInput={handleBodyChange}
             dangerouslySetInnerHTML={{ __html: body }}
           />
-        </div>
-        <div className="form-actions">
-          <button type="submit" className="action">Simpan</button>
-          <button type="button" onClick={() => navigate('/notes')} className="action action--cancel">Batal</button>
         </div>
       </form>
     </div>
