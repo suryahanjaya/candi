@@ -162,11 +162,11 @@ main {
 
 .notes-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 24px;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 24px;
 }
 
 .notes-header h2 {
@@ -209,11 +209,21 @@ main {
   color: var(--on-background);
   background: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(106, 0, 255, 0.2);
+}
+
+.inline-nav .nav-item:hover .nav-icon {
+  transform: scale(1.1);
+  color: var(--neon-violet);
 }
 
 .inline-nav .nav-icon {
   font-size: 18px;
   margin-bottom: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .inline-nav .nav-label {
@@ -224,8 +234,9 @@ main {
 .notes-list {
   margin-top: 0;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  align-items: start;
 }
 
 /* Removed duplicate .notes-list - using consolidated version above */
@@ -306,6 +317,9 @@ main {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: slideInUp 0.6s ease-out;
   overflow: hidden;
+  min-height: auto;
+  height: auto;
+  width: 100%;
 }
 
 .notes-item::before {
@@ -898,6 +912,75 @@ main {
   background: linear-gradient(135deg, #4B5563 0%, #6B7280 100%);
   border-color: #6B7280;
   box-shadow: 0 8px 24px rgba(107, 114, 128, 0.2);
+}
+
+/* CANDI Footer */
+.candi-footer {
+  background: var(--gradient-primary);
+  padding: 32px 0;
+  margin-top: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.candi-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.candi-footer__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.candi-footer__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.candi-footer__logo {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #FFFFFF;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.candi-footer__text h3 {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.candi-footer__text p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  margin: 4px 0 0 0;
+  font-weight: 500;
 }
 
 /* Clean codebase - no unused styles */

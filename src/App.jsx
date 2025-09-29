@@ -18,10 +18,7 @@ function App() {
         <Router>
           <div className="app-container">
             <header>
-              <div className="header-brand">
-                <h1>CANDI</h1>
-                <span className="header-subtitle">Catatan Digital</span>
-              </div>
+              <h1>CANDI</h1>
               <ThemeToggle />
             </header>
             <main>
@@ -35,6 +32,17 @@ function App() {
               </Routes>
             </main>
             <DeveloperFooter />
+            <div className="candi-footer">
+              <div className="candi-footer__content">
+                <div className="candi-footer__brand">
+                  <div className="candi-footer__logo">C</div>
+                  <div className="candi-footer__text">
+                    <h3>CANDI</h3>
+                    <p>Catatan Digital</p>
+                  </div>
+                </div>
+              </div>
+            </div>
             <FloatingActionButton />
           </div>
         </Router>
