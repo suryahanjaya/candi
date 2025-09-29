@@ -91,10 +91,10 @@ function unarchiveNote(id) {
   });
 }
 
-function editNote({ id, title, body }) {
+function editNote(noteData) {
   notes = notes.map((note) => {
-    if (note.id === id) {
-      return { ...note, title, body, updatedAt: new Date().toISOString() };
+    if (note.id === noteData.id) {
+      return { ...note, ...noteData, updatedAt: new Date().toISOString() };
     }
     return note;
   });
