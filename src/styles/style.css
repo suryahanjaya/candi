@@ -158,7 +158,6 @@ main {
   z-index: 1;
 }
 
-/* Removed scroll restrictions */
 
 .center-navigation {
   display: flex;
@@ -168,7 +167,6 @@ main {
   width: 100%;
 }
 
-/* Removed unused notes-header h2 styles */
 
 .inline-nav {
   display: flex;
@@ -281,7 +279,6 @@ main {
   }
 }
 
-/* Removed duplicate .notes-list - using consolidated version above */
 
 .notes-list__empty-message {
   text-align: center;
@@ -580,14 +577,7 @@ main {
   justify-content: center;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+/* Removed unused fadeIn keyframes */
 
 .note-detail__body {
   line-height: 1.5;
@@ -1177,10 +1167,6 @@ main {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
-
-/* Clean codebase - no unused styles */
-
-/* Removed duplicate fadeInUp - using slideInUp instead */
 
 @keyframes pulse {
   0% {
