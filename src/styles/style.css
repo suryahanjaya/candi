@@ -1050,6 +1050,7 @@ main {
   
   .developer-social {
     gap: 8px;
+    justify-content: center;
   }
   
   .developer-social a {
