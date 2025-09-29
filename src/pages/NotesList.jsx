@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useNotes } from '../context/NotesContext';
 import NoteItem from '../components/NoteItem';
@@ -7,15 +7,9 @@ import SearchBar from '../components/SearchBar';
 const NotesList = () => {
   const { getActive } = useNotes();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchKeyword, setSearchKeyword] = useState(searchParams.get('search') || '');
-
-  useEffect(() => {
-    const search = searchParams.get('search') || '';
-    setSearchKeyword(search);
-  }, [searchParams]);
+  const searchKeyword = searchParams.get('search') || '';
 
   const handleSearchChange = (keyword) => {
-    setSearchKeyword(keyword);
     if (keyword.trim()) {
       setSearchParams({ search: keyword });
     } else {

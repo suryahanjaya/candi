@@ -16,7 +16,7 @@ const AddNote = () => {
   };
 
   const handleBodyChange = (e) => {
-    setBody(e.target.innerHTML);
+    setBody(e.target.textContent);
   };
 
   // Auto-save on Enter key
@@ -56,8 +56,9 @@ const AddNote = () => {
             contentEditable
             data-placeholder="Tulis isi catatan di sini..."
             onInput={handleBodyChange}
-            dangerouslySetInnerHTML={{ __html: body }}
-          />
+          >
+            {body}
+          </div>
         </div>
         <div className="form-actions">
           <button type="submit" className="action">Simpan</button>
