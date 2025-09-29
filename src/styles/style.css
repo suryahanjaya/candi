@@ -23,12 +23,19 @@
 [data-theme="light"] {
   --background: #F8F9FA;
   --surface: #FFFFFF;
+  --surface-elevated: #F1F3F4;
   --on-background: #1a1a1a;
   --on-background-grey: #6c757d;
   --on-surface: #1a1a1a;
-  --primary: #7C3AED;
-  --primary-variant: #5B21B6;
+  --primary: #6A00FF;
+  --primary-variant: #9D4EDD;
   --secondary: #E5E7EB;
+  --accent-purple: #8B5CF6;
+  --neon-violet: #A855F7;
+  --gradient-primary: linear-gradient(135deg, #6A00FF 0%, #9D4EDD 100%);
+  --gradient-secondary: linear-gradient(135deg, #9D4EDD 0%, #EC4899 50%, #3B82F6 100%);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -44,18 +51,27 @@ a {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--background);
+  background: linear-gradient(135deg, #0D0D0D 0%, #1a0a2e 25%, #16213e 50%, #0f3460 75%, #0D0D0D 100%);
   min-height: 100vh;
   color: var(--on-background);
   overflow-x: hidden;
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] body {
+  background: linear-gradient(135deg, #F8F9FA 0%, #E3F2FD 25%, #E8EAF6 50%, #F3E5F5 75%, #F8F9FA 100%);
 }
 
 .app-container {
   color: var(--on-background);
-  background: var(--background);
+  background: linear-gradient(135deg, #0D0D0D 0%, #1a0a2e 25%, #16213e 50%, #0f3460 75%, #0D0D0D 100%);
   min-height: 100vh;
   transition: all ease-in-out 0.3s;
   position: relative;
+}
+
+[data-theme="light"] .app-container {
+  background: linear-gradient(135deg, #F8F9FA 0%, #E3F2FD 25%, #E8EAF6 50%, #F3E5F5 75%, #F8F9FA 100%);
 }
 
 .app-container::before {
@@ -65,10 +81,19 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 20% 80%, rgba(106, 0, 255, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(157, 78, 221, 0.1) 0%, transparent 50%);
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(106, 0, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(157, 78, 221, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
   pointer-events: none;
   z-index: -1;
+}
+
+[data-theme="light"] .app-container::before {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(106, 0, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(157, 78, 221, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.05) 0%, transparent 70%);
 }
 
 header {
@@ -705,6 +730,38 @@ main {
 }
 
 .fab:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  color: var(--on-background);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(106, 0, 255, 0.3);
+  background: var(--gradient-primary);
+  color: var(--on-background);
+}
+
+.theme-toggle:active {
   transform: scale(0.95);
 }
 
