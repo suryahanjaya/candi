@@ -35,7 +35,23 @@ const NotesList = () => {
 
   return (
     <div className="notes-list-page">
-      <h2>Catatan Aktif</h2>
+      <div className="notes-header">
+        <h2>Catatan Aktif</h2>
+        <div className="inline-nav">
+          <Link to="/notes" className="nav-item">
+            <div className="nav-icon">🏠</div>
+            <span className="nav-label">Beranda</span>
+          </Link>
+          <Link to="/notes/new" className="nav-item">
+            <div className="nav-icon">➕</div>
+            <span className="nav-label">Tambah</span>
+          </Link>
+          <Link to="/archives" className="nav-item">
+            <div className="nav-icon">📁</div>
+            <span className="nav-label">Arsip</span>
+          </Link>
+        </div>
+      </div>
       <SearchBar keyword={searchKeyword} onKeywordChange={handleSearchChange} />
       <div className="notes-list">
         {activeNotes.length > 0 ? (

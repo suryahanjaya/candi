@@ -56,8 +56,6 @@ body {
   color: var(--on-background);
   overflow-x: hidden;
   transition: all 0.3s ease;
-  max-height: 100vh;
-  overflow-y: hidden;
 }
 
 [data-theme="light"] body {
@@ -71,10 +69,6 @@ body {
   transition: all ease-in-out 0.3s;
   position: relative;
   overflow-x: hidden;
-  max-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-y: hidden;
 }
 
 [data-theme="light"] .app-container {
@@ -122,6 +116,12 @@ header {
   height: 60px;
 }
 
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 header h1 {
   font-weight: 700;
   font-size: 28px;
@@ -131,6 +131,16 @@ header h1 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -0.5px;
+  margin: 0;
+  animation: float 3s ease-in-out infinite;
+}
+
+.header-subtitle {
+  font-size: 12px;
+  color: var(--on-background-grey);
+  font-weight: 500;
+  margin-top: -2px;
+  letter-spacing: 0.5px;
 }
 
 header .navigation ul li {
@@ -141,36 +151,81 @@ header .navigation ul li {
 
 main {
   margin: 0 auto;
-  padding: 80px 0 120px 0;
+  padding: 80px 0 100px 0;
   width: 90%;
   max-width: 1200px;
-  min-height: calc(100vh - 200px);
-  position: relative;
-  z-index: 1;
-  overflow-y: auto;
-  max-height: calc(100vh - 200px);
-  flex: 1;
-  margin-bottom: 0;
-  scroll-behavior: smooth;
-}
-
-/* Scroll boundary to prevent reaching footer */
-.scroll-container {
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
-  overflow-x: hidden;
   position: relative;
   z-index: 1;
 }
 
-/* Strict scroll boundary */
+/* Removed scroll restrictions */
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.notes-header h2 {
+  color: var(--on-background);
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.inline-nav {
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.inline-nav .nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--on-background-grey);
+  font-size: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 8px 12px;
+  border-radius: 12px;
+  min-width: 60px;
+}
+
+.inline-nav .nav-item:hover {
+  color: var(--on-background);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.inline-nav .nav-icon {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.inline-nav .nav-label {
+  font-weight: 500;
+  font-size: 11px;
+}
+
 .notes-list {
-  margin-top: 32px;
+  margin-top: 0;
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
-  padding-bottom: 160px; /* Extra space to prevent scroll to footer */
-  margin-bottom: 40px; /* Additional margin to prevent footer scroll */
 }
 
 /* Removed duplicate .notes-list - using consolidated version above */
@@ -1070,18 +1125,7 @@ main {
   max-width: 400px;
 }
 
-/* Prevent scroll beyond bottom navigation */
-body::after {
-  content: '';
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100px;
-  background: transparent;
-  pointer-events: none;
-  z-index: 999;
-}
+/* Removed body::after pseudo-element that was causing stuck navigation */
 
 .nav-item {
   display: flex;

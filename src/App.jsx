@@ -7,7 +7,6 @@ import ArchivedNotes from './pages/ArchivedNotes';
 import NoteDetail from './pages/NoteDetail';
 import AddNote from './pages/AddNote';
 import NotFound from './pages/NotFound';
-import BottomNav from './components/BottomNav';
 import FloatingActionButton from './components/FloatingActionButton';
 import ThemeToggle from './components/ThemeToggle';
 import DeveloperFooter from './components/DeveloperFooter';
@@ -19,7 +18,10 @@ function App() {
         <Router>
           <div className="app-container">
             <header>
-              <h1>CANDI</h1>
+              <div className="header-brand">
+                <h1>CANDI</h1>
+                <span className="header-subtitle">Catatan Digital</span>
+              </div>
               <ThemeToggle />
             </header>
             <main>
@@ -33,7 +35,6 @@ function App() {
               </Routes>
             </main>
             <DeveloperFooter />
-            <BottomNav />
             <FloatingActionButton />
           </div>
         </Router>
