@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotes } from '../context/NotesContext';
 
 const AddNote = () => {
   const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  const bodyRef = useRef(null);
   const navigate = useNavigate();
   const { addNote } = useNotes();
 
   const handleSave = () => {
-    if (title.trim() || body.trim()) {
-      addNote({ title, body });
+    const bodyText = bodyRef.current ? bodyRef.current.textContent : '';
+    if (title.trim() || bodyText.trim()) {
+      addNote({ title, body: bodyText });
       navigate('/notes');
     }
-  };
-
-  const handleBodyChange = (e) => {
-    setBody(e.target.textContent);
   };
 
   // Auto-save on Enter key
@@ -30,7 +27,7 @@ const AddNote = () => {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [title, body]);
+  }, [title]);
 
   return (
     <div className="add-note-page">
@@ -52,13 +49,11 @@ const AddNote = () => {
           <label htmlFor="body">Isi Catatan</label>
           <div
             id="body"
+            ref={bodyRef}
             className="content-editable"
             contentEditable
             data-placeholder="Tulis isi catatan di sini..."
-            onInput={handleBodyChange}
-          >
-            {body}
-          </div>
+          />
         </div>
         <div className="form-actions">
           <button type="submit" className="action">Simpan</button>

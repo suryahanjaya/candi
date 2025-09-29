@@ -40,7 +40,7 @@ const NoteDetail = () => {
   };
 
   const handleBodyChange = (e) => {
-    setEditBody(e.target.innerHTML);
+    setEditBody(e.target.textContent);
   };
 
   const handleDelete = () => {
@@ -156,8 +156,9 @@ const NoteDetail = () => {
               contentEditable
               data-placeholder="Tulis isi catatan di sini..."
               onInput={handleBodyChange}
-              dangerouslySetInnerHTML={{ __html: editBody }}
-            />
+            >
+              {editBody}
+            </div>
           </div>
           <div className="edit-actions">
             <button onClick={handleSaveEdit} className="action">Simpan</button>
