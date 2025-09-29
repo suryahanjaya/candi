@@ -160,25 +160,15 @@ main {
 
 /* Removed scroll restrictions */
 
-.notes-header {
+.center-navigation {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  gap: 24px;
+  margin: 40px 0 32px 0;
+  width: 100%;
 }
 
-.notes-header h2 {
-  color: var(--on-background);
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+/* Removed unused notes-header h2 styles */
 
 .inline-nav {
   display: flex;
@@ -942,6 +932,11 @@ main {
   padding: 0 24px;
   position: relative;
   z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 32px;
 }
 
 .candi-footer__brand {
@@ -981,6 +976,48 @@ main {
   font-size: 14px;
   margin: 4px 0 0 0;
   font-weight: 500;
+}
+
+.candi-footer__developer {
+  display: flex;
+  align-items: center;
+}
+
+.developer-info h4 {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.developer-info p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  margin: 0 0 12px 0;
+  font-weight: 400;
+}
+
+.developer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.developer-social a {
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.developer-social a:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Clean codebase - no unused styles */

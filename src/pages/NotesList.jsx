@@ -35,8 +35,7 @@ const NotesList = () => {
 
   return (
     <div className="notes-list-page">
-      <div className="notes-header">
-        <h2>Catatan Aktif</h2>
+      <div className="center-navigation">
         <div className="inline-nav">
           <Link to="/notes" className="nav-item">
             <div className="nav-icon">
