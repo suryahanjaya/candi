@@ -80,10 +80,10 @@ header {
   align-items: center;
   justify-content: center;
   padding: 16px 24px;
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   transition: all 0.3s ease;
@@ -293,59 +293,7 @@ main {
   background-color: var(--error);
 }
 
-.detail-page__action, .homepage__action, .add-new-page__action {
-  position: fixed;
-  display: flex;
-  gap: 16px;
-  bottom: 32px;
-  right: 32px;
-}
-
-.action {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  border: 0;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--gradient-secondary);
-  color: var(--on-background);
-  padding: 0;
-  cursor: pointer;
-  box-shadow: 0 8px 32px rgba(106, 0, 255, 0.3);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.action::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--gradient-secondary);
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  animation: gradientShift 3s ease-in-out infinite;
-}
-
-.action:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 40px rgba(106, 0, 255, 0.4);
-}
-
-.action:hover::before {
-  opacity: 1;
-}
-
-.action:active {
-  transform: scale(0.95);
-}
+/* Removed duplicate action styles - using the main .action definition below */
 
 @keyframes gradientShift {
   0%, 100% {
@@ -353,6 +301,15 @@ main {
   }
   50% {
     background: linear-gradient(135deg, #EC4899 0%, #3B82F6 50%, #6A00FF 100%);
+  }
+}
+
+@keyframes gradientShiftReverse {
+  0%, 100% {
+    background: linear-gradient(135deg, #EC4899 0%, #3B82F6 50%, #6A00FF 100%);
+  }
+  50% {
+    background: linear-gradient(135deg, #6A00FF 0%, #9D4EDD 50%, #EC4899 100%);
   }
 }
 
@@ -436,10 +393,36 @@ main {
   pointer-events: none;
 }
 
-.form-actions {
+.form-actions, .edit-actions {
   display: flex;
   gap: 16px;
   margin-top: 32px;
+}
+
+.edit-form {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid var(--glass-border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--on-background);
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  caret-color: var(--neon-violet);
+}
+
+.edit-input:focus {
+  border-color: var(--neon-violet);
+  box-shadow: 0 0 24px rgba(168, 85, 247, 0.3), 0 4px 16px rgba(0, 0, 0, 0.1);
+  outline: none;
+  background: var(--surface-elevated);
 }
 
 .form-actions .action {
@@ -582,90 +565,54 @@ main {
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  font-weight: 600;
   border: 0;
   width: auto;
   height: auto;
-  border-radius: 8px;
-  background: linear-gradient(45deg, var(--primary) 0%, var(--primary-variant) 100%);
-  color: var(--background);
+  border-radius: 12px;
+  background: var(--gradient-primary);
+  color: var(--on-background);
   padding: 12px 24px;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
-  box-shadow: 0 4px 15px rgba(187, 134, 252, 0.3);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(106, 0, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .action:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(187, 134, 252, 0.4);
-  background: linear-gradient(45deg, var(--primary-variant) 0%, var(--primary) 100%);
+  box-shadow: 0 8px 24px rgba(106, 0, 255, 0.4);
+  background: var(--gradient-secondary);
+  border-color: var(--neon-violet);
 }
 
-.toggle-theme, .toggle-locale {
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
+.action--delete {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
   color: var(--on-background);
-  display: flex;
-  align-items: center;
-  margin: 0 16px;
+  box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
 }
 
-.toggle-theme {
-  font-size: 36px;
+.action--delete:hover {
+  background: linear-gradient(135deg, #FF5252 0%, #FF1744 100%);
+  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.4);
 }
 
-.toggle-locale {
-  font-size: 28px;
-}
-
-.input-login, .input-register {
-  margin: 32px 0;
-}
-
-.input-login label, .input-register label {
-  font-size: 24px;
-  font-weight: lighter;
-}
-
-.input-login input, .input-register input {
-  font-size: 18px;
-  font-family: 'Inter', sans-serif;
-  margin-top: 8px;
-  margin-bottom: 16px;
-  display: block;
-  width: 100%;
-  padding: 8px;
-  background-color: transparent;
-  border-radius: 8px;
-  border: 3px solid var(--on-background);
-  color: var(--on-background)
-}
-
-.input-login button, .input-register button {
-  font-family: 'Inter', sans-serif;
-  font-weight: bold;
-  font-size: 24px;
-  width: 100%;
-  padding: 12px;
-  border: 0;
-  border-radius: 8px;
-  background-color: var(--on-background);
-  color: var(--background);
-  cursor: pointer;
-}
-
-.button-logout {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: transparent;
-  border: 0;
-  font-size: 28px;
-  cursor: pointer;
+.action--cancel {
+  background: var(--surface);
   color: var(--on-background);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
+
+.action--cancel:hover {
+  background: var(--surface-elevated);
+  border-color: var(--neon-violet);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.2);
+}
+
+/* Removed unused login/register styles */
 
 @keyframes fadeInUp {
   from {
@@ -748,13 +695,13 @@ main {
   box-shadow: 0 8px 32px rgba(106, 0, 255, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 999;
-  animation: gradientShift 3s ease-in-out infinite;
+  animation: gradientShift 4s ease-in-out infinite;
 }
 
 .fab:hover {
   transform: scale(1.1);
   box-shadow: 0 12px 40px rgba(106, 0, 255, 0.4);
-  animation: pulse 1.5s infinite;
+  animation: gradientShiftReverse 2s ease-in-out infinite;
 }
 
 .fab:active {
@@ -770,10 +717,10 @@ main {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   display: flex;
   justify-content: space-around;

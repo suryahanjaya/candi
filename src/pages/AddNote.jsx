@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotes } from '../context/NotesContext';
 
@@ -8,8 +8,7 @@ const AddNote = () => {
   const navigate = useNavigate();
   const { addNote } = useNotes();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSave = () => {
     if (title.trim() || body.trim()) {
       addNote({ title, body });
       navigate('/notes');
@@ -20,10 +19,23 @@ const AddNote = () => {
     setBody(e.target.innerHTML);
   };
 
+  // Auto-save on Enter key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        handleSave();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [title, body]);
+
   return (
     <div className="add-note-page">
       <h2>Tambah Catatan Baru</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
         <div className="input-group">
           <label htmlFor="title">Judul</label>
           <input
@@ -46,6 +58,10 @@ const AddNote = () => {
             onInput={handleBodyChange}
             dangerouslySetInnerHTML={{ __html: body }}
           />
+        </div>
+        <div className="form-actions">
+          <button type="submit" className="action">Simpan</button>
+          <button type="button" onClick={() => navigate('/notes')} className="action action--cancel">Batal</button>
         </div>
       </form>
     </div>
