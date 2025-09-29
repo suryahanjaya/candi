@@ -10,6 +10,7 @@ import NotFound from './pages/NotFound';
 import BottomNav from './components/BottomNav';
 import FloatingActionButton from './components/FloatingActionButton';
 import ThemeToggle from './components/ThemeToggle';
+import DeveloperFooter from './components/DeveloperFooter';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         <Router>
           <div className="app-container">
             <header>
-              <h1>Notes</h1>
+              <h1>CANDI</h1>
+              <ThemeToggle />
             </header>
             <main>
               <Routes>
@@ -30,9 +32,9 @@ function App() {
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
+            <DeveloperFooter />
             <BottomNav />
             <FloatingActionButton />
-            <ThemeToggle />
           </div>
         </Router>
       </NotesProvider>

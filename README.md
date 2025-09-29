@@ -1,13 +1,13 @@
-# 📝 **Notes App** - Premium Digital Notes Application
+# 🏛️ **CANDI** - Premium Digital Notes Application
 
 <div align="center">
 
-![Notes App Demo](https://img.shields.io/badge/Status-Live%20Demo-brightgreen?style=for-the-badge&logo=react)
+![CANDI Demo](https://img.shields.io/badge/Status-Live%20Demo-brightgreen?style=for-the-badge&logo=react)
 ![React](https://img.shields.io/badge/React-18.2.0-blue?style=for-the-badge&logo=react)
 ![Vite](https://img.shields.io/badge/Vite-4.2.0-purple?style=for-the-badge&logo=vite)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-**A modern, premium digital notes application with glassmorphism design, gradient themes, and advanced features.**
+**CANDI - A modern, premium digital notes application with glassmorphism design, gradient themes, and advanced features.**
 
 </div>
 
@@ -236,10 +236,40 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
+## 👨‍💻 **Developer**
+
 <div align="center">
 
-### **⭐ Star this repository if you found it helpful!**
+### **Surya Hanjaya**
 
-**Made with ❤️ and lots of ☕**
+*AI Researcher • Full-Stack Developer • Informatics Engineering '23*
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/surya-hanjaya/)
+[![GitHub](https://img.shields.io/badge/GitHub-333333?style=for-the-badge&logo=github&logoColor=white)](https://github.com/suryahanjaya)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/h4njy/)
+
+</div>
+
+---
+
+## 📱 **Mobile & Tablet Optimized**
+
+- **Responsive Design** for all screen sizes
+- **Touch-friendly** interactions
+- **Optimized Navigation** for mobile devices
+- **Adaptive Layouts** for tablets and phones
+- **Performance Optimized** for mobile networks
+
+---
+
+## 🎯 **Key Features**
+
+- ✅ **CANDI Branding** with custom logo
+- ✅ **Developer Information** with social links
+- ✅ **Mobile Responsive** design
+- ✅ **Light/Dark Mode** with system detection
+- ✅ **Purple Gradient** theme throughout
+- ✅ **Glassmorphism** effects
+- ✅ **Smooth Animations** and transitions
 
 </div>

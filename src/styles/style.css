@@ -24,9 +24,9 @@
   --background: #F8F9FA;
   --surface: #FFFFFF;
   --surface-elevated: #F1F3F4;
-  --on-background: #1a1a1a;
-  --on-background-grey: #6c757d;
-  --on-surface: #1a1a1a;
+  --on-background: #2D1B69;
+  --on-background-grey: #6B46C1;
+  --on-surface: #2D1B69;
   --primary: #6A00FF;
   --primary-variant: #9D4EDD;
   --secondary: #E5E7EB;
@@ -35,7 +35,7 @@
   --gradient-primary: linear-gradient(135deg, #6A00FF 0%, #9D4EDD 100%);
   --gradient-secondary: linear-gradient(135deg, #9D4EDD 0%, #EC4899 50%, #3B82F6 100%);
   --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-border: rgba(106, 0, 255, 0.1);
 }
 
 * {
@@ -103,7 +103,7 @@ header {
   right: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 16px 24px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(40px);
@@ -115,15 +115,14 @@ header {
 }
 
 header h1 {
-  flex: 1;
-  font-weight: 600;
-  font-size: 24px;
+  font-weight: 700;
+  font-size: 28px;
   color: var(--on-background);
-  text-align: center;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -0.5px;
 }
 
 header .navigation ul li {
@@ -134,10 +133,12 @@ header .navigation ul li {
 
 main {
   margin: 0 auto;
-  padding: 100px 0 120px 0;
+  padding: 100px 0 140px 0;
   width: 90%;
   max-width: 1200px;
-  min-height: calc(100vh - 220px);
+  min-height: calc(100vh - 240px);
+  position: relative;
+  z-index: 1;
 }
 
 .notes-list {
@@ -152,6 +153,55 @@ main {
   text-align: center;
   color: var(--on-background-grey);
   margin-top: 32px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 64px 32px;
+  margin: 0 auto;
+  max-width: 500px;
+  width: 100%;
+  min-height: 60vh;
+  position: relative;
+}
+
+.empty-state__icon {
+  color: var(--on-background-grey);
+  margin-bottom: 24px;
+  opacity: 0.6;
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-state__title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--on-background);
+  margin-bottom: 12px;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.empty-state__description {
+  font-size: 16px;
+  color: var(--on-background-grey);
+  line-height: 1.6;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 .notes-item {
   padding: 24px;
@@ -637,6 +687,43 @@ main {
   box-shadow: 0 8px 24px rgba(168, 85, 247, 0.2);
 }
 
+/* Transparent gradient buttons for light mode */
+[data-theme="light"] .action {
+  background: rgba(106, 0, 255, 0.7);
+  color: var(--on-background);
+  border: 1px solid rgba(106, 0, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+[data-theme="light"] .action:hover {
+  background: rgba(106, 0, 255, 0.8);
+  border-color: var(--neon-violet);
+  box-shadow: 0 8px 24px rgba(106, 0, 255, 0.4);
+}
+
+[data-theme="light"] .action--delete {
+  background: rgba(255, 107, 107, 0.7);
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+[data-theme="light"] .action--delete:hover {
+  background: rgba(255, 107, 107, 0.8);
+  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.4);
+}
+
+[data-theme="light"] .action--cancel {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(106, 0, 255, 0.3);
+  color: var(--on-background);
+}
+
+[data-theme="light"] .action--cancel:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--neon-violet);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.2);
+}
+
 /* Removed unused login/register styles */
 
 @keyframes fadeInUp {
@@ -734,11 +821,8 @@ main {
 }
 
 .theme-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
@@ -750,7 +834,6 @@ main {
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1001;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
@@ -767,6 +850,92 @@ main {
 
 .action:focus {
   animation: pulse 1.5s infinite;
+}
+
+.developer-footer {
+  margin-top: 64px;
+  padding: 32px 24px 120px 24px;
+  border-top: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  z-index: 0;
+}
+
+.developer-footer__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.candi-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  box-shadow: 0 8px 24px rgba(106, 0, 255, 0.3);
+}
+
+.candi-logo__letter {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--on-background);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.developer-info {
+  text-align: left;
+  flex: 1;
+}
+
+.developer-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.developer-title {
+  font-size: 14px;
+  color: var(--on-background-grey);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--on-background-grey);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid var(--glass-border);
+}
+
+.social-link:hover {
+  background: var(--gradient-primary);
+  color: var(--on-background);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(106, 0, 255, 0.3);
 }
 
 .bottom-nav {
@@ -864,5 +1033,145 @@ main {
 @media screen and (min-width: 1200px) {
   .notes-list {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Mobile and Tablet Optimizations */
+@media screen and (max-width: 768px) {
+  .developer-footer__content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .developer-info {
+    text-align: center;
+  }
+  
+  .candi-logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .candi-logo__letter {
+    font-size: 28px;
+  }
+  
+  .developer-name {
+    font-size: 18px;
+  }
+  
+  .developer-title {
+    font-size: 13px;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .empty-state {
+    padding: 48px 16px;
+    margin: 0 auto;
+    min-height: 50vh;
+  }
+  
+  .empty-state__title {
+    font-size: 20px;
+  }
+  
+  .empty-state__description {
+    font-size: 14px;
+  }
+  
+  header {
+    padding: 12px 16px;
+  }
+  
+  header h1 {
+    font-size: 24px;
+  }
+  
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .bottom-nav {
+    width: calc(100% - 32px);
+    padding: 8px 16px;
+  }
+  
+  .nav-item {
+    padding: 8px 12px;
+    min-width: 50px;
+  }
+  
+  .nav-icon {
+    font-size: 18px;
+  }
+  
+  .nav-label {
+    font-size: 10px;
+  }
+  
+  .fab {
+    bottom: 80px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  main {
+    padding: 80px 0 120px 0;
+  }
+  
+  .notes-list {
+    padding: 8px 4px;
+    gap: 12px;
+  }
+  
+  .notes-item {
+    padding: 16px;
+  }
+  
+  .notes-item__title {
+    font-size: 16px;
+  }
+  
+  .notes-item__body {
+    font-size: 14px;
+  }
+  
+  .developer-footer {
+    padding: 24px 16px 100px 16px;
+    margin-top: 32px;
+  }
+  
+  .developer-footer__content {
+    gap: 12px;
+  }
+  
+  .candi-logo {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .candi-logo__letter {
+    font-size: 24px;
+  }
+  
+  .developer-name {
+    font-size: 16px;
+  }
+  
+  .developer-title {
+    font-size: 12px;
+  }
+  
+  .social-link {
+    width: 32px;
+    height: 32px;
   }
 }
