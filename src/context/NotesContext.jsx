@@ -9,6 +9,7 @@ import {
   unarchiveNote as unarchiveNoteUtil,
   editNote as editNoteUtil,
   getNote as getNoteUtil,
+  updateNoteDate as updateNoteDateUtil,
 } from '../utils/local-data';
 
 const NotesContext = createContext();
@@ -47,6 +48,13 @@ export const NotesProvider = ({ children }) => {
     refreshNotes();
   };
 
+  const updateNoteDate = (id) => {
+    console.log('Context updateNoteDate called with id:', id);
+    updateNoteDateUtil(id);
+    refreshNotes();
+    console.log('Notes refreshed after date update');
+  };
+
   const getNote = (id) => {
     return getNoteUtil(id);
   };
@@ -67,6 +75,7 @@ export const NotesProvider = ({ children }) => {
       archiveNote,
       unarchiveNote,
       editNote,
+      updateNoteDate,
       getNote,
       getActive,
       getArchived,

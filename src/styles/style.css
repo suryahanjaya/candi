@@ -165,8 +165,17 @@ main {
   margin: 0 auto;
   max-width: 500px;
   width: 100%;
-  min-height: 60vh;
+  min-height: 70vh;
   position: relative;
+}
+
+.archived-notes-page .empty-state {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: auto;
+  padding: 32px;
 }
 
 .empty-state__icon {
@@ -336,6 +345,113 @@ main {
   margin-bottom: 24px;
 }
 
+.note-detail__updated {
+  color: var(--neon-violet);
+  font-weight: 500;
+}
+
+.success-message {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  padding: 16px 24px;
+  border-radius: 16px;
+  margin: 16px 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  animation: slideInUp 0.3s ease-out;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.date-picker-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.date-picker-content {
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.3s ease-out;
+}
+
+.date-picker-content h3 {
+  color: var(--on-background);
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-align: center;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.date-input-group {
+  margin-bottom: 24px;
+}
+
+.date-input-group label {
+  display: block;
+  color: var(--on-background);
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.date-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid var(--glass-border);
+  border-radius: 12px;
+  background: var(--surface-elevated);
+  color: var(--on-background);
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.date-input:focus {
+  border-color: var(--neon-violet);
+  box-shadow: 0 0 24px rgba(168, 85, 247, 0.3), 0 4px 16px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.date-picker-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .note-detail__body {
   line-height: 1.5;
   margin-top: 36px;
@@ -351,22 +467,7 @@ main {
   flex-wrap: wrap;
 }
 
-.note-detail__actions .action {
-  position: static;
-  width: auto;
-  height: auto;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.note-detail__actions .action--delete {
-  background-color: var(--error);
-}
+/* Removed duplicate action styles - using main .action definition */
 
 /* Removed duplicate action styles - using the main .action definition below */
 
@@ -500,26 +601,7 @@ main {
   background: var(--surface-elevated);
 }
 
-.form-actions .action {
-  position: static;
-  width: auto;
-  height: auto;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-}
-
-.form-actions .action--cancel {
-  background-color: transparent;
-  color: var(--on-background);
-  border: 1px solid var(--on-background);
-}
+/* Removed duplicate form action styles - using main .action definition */
 
 .search-bar {
   margin: 16px 0;
@@ -607,6 +689,8 @@ main {
 .notes-list-page, .archived-notes-page {
   padding: 16px;
   animation: slideInUp 0.6s ease-out;
+  position: relative;
+  min-height: calc(100vh - 200px);
 }
 
 .add-note-page, .note-detail-page {
@@ -685,6 +769,17 @@ main {
   background: var(--surface-elevated);
   border-color: var(--neon-violet);
   box-shadow: 0 8px 24px rgba(168, 85, 247, 0.2);
+}
+
+.action:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.action:disabled:hover {
+  transform: none;
+  box-shadow: 0 4px 16px rgba(106, 0, 255, 0.3);
 }
 
 /* Transparent gradient buttons for light mode */

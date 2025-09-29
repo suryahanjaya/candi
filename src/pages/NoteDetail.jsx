@@ -7,10 +7,14 @@ import parser from 'html-react-parser';
 const NoteDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { getNote, deleteNote, archiveNote, unarchiveNote, editNote } = useNotes();
+  const { getNote, deleteNote, archiveNote, unarchiveNote, editNote, updateNoteDate } = useNotes();
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState('');
   const [editBody, setEditBody] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [isUpdatingDate, setIsUpdatingDate] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
 
   const note = getNote(id);
 
@@ -56,6 +60,39 @@ const NoteDetail = () => {
     navigate('/archives');
   };
 
+  const handleUpdateDate = () => {
+    setShowDatePicker(true);
+    setSelectedDate(note.createdAt.split('T')[0]); // Set current date as default
+  };
+
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+  };
+
+  const handleSaveDate = () => {
+    if (selectedDate) {
+      console.log('Updating date for note:', id, 'to:', selectedDate);
+      setIsUpdatingDate(true);
+      
+      // Update the note with new date
+      const newDate = new Date(selectedDate).toISOString();
+      editNote({ ...note, createdAt: newDate });
+      
+      setShowSuccessMessage(true);
+      setShowDatePicker(false);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+        setIsUpdatingDate(false);
+      }, 3000);
+      console.log('Date updated successfully');
+    }
+  };
+
+  const handleCancelDate = () => {
+    setShowDatePicker(false);
+    setSelectedDate('');
+  };
+
   const handleBack = () => {
     navigate('/notes');
   };
@@ -65,6 +102,38 @@ const NoteDetail = () => {
       <div className="note-detail__toolbar">
         <button onClick={handleBack} className="back-button">← Kembali</button>
       </div>
+      
+      {showSuccessMessage && (
+        <div className="success-message">
+          ✅ Tanggal berhasil diperbarui!
+        </div>
+      )}
+
+      {showDatePicker && (
+        <div className="date-picker-modal">
+          <div className="date-picker-content">
+            <h3>Ubah Tanggal Catatan</h3>
+            <div className="date-input-group">
+              <label htmlFor="date-input">Pilih Tanggal Baru:</label>
+              <input
+                id="date-input"
+                type="date"
+                value={selectedDate}
+                onChange={handleDateChange}
+                className="date-input"
+              />
+            </div>
+            <div className="date-picker-actions">
+              <button onClick={handleSaveDate} className="action" disabled={!selectedDate}>
+                Simpan Tanggal
+              </button>
+              <button onClick={handleCancelDate} className="action action--cancel">
+                Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       
       {isEditing ? (
         <div className="edit-form">
@@ -97,10 +166,24 @@ const NoteDetail = () => {
       ) : (
         <>
           <h2>{note.title}</h2>
-          <p className="note-detail__date">{formatDate(note.createdAt)}</p>
+          <p className="note-detail__date">
+            Dibuat: {formatDate(note.createdAt)}
+            {note.updatedAt && (
+              <span className="note-detail__updated">
+                <br />Diperbarui: {formatDate(note.updatedAt)}
+              </span>
+            )}
+          </p>
           <div className="note-detail__body">{parser(note.body)}</div>
           <div className="note-detail__actions">
             <button onClick={handleEdit} className="action">Edit</button>
+            <button 
+              onClick={handleUpdateDate} 
+              className="action"
+              disabled={isUpdatingDate}
+            >
+              {isUpdatingDate ? 'Memperbarui...' : 'Ubah Tanggal'}
+            </button>
             <button onClick={handleDelete} className="action action--delete">Hapus</button>
             {note.archived ? (
               <button onClick={handleUnarchive} className="action">Batal Arsip</button>
