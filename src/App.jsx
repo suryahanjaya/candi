@@ -9,7 +9,6 @@ import AddNote from './pages/AddNote';
 import NotFound from './pages/NotFound';
 import FloatingActionButton from './components/FloatingActionButton';
 import ThemeToggle from './components/ThemeToggle';
-import DeveloperFooter from './components/DeveloperFooter';
 
 function App() {
   return (
@@ -31,7 +30,6 @@ function App() {
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
-            <DeveloperFooter />
             <div className="candi-footer">
               <div className="candi-footer__content">
                 <div className="candi-footer__brand">
