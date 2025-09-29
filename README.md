@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![CANDI Demo](https://img.shields.io/badge/Status-Live%20Demo-brightgreen?style=for-the-badge&logo=react)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-https://candi--suryahanjaya.vercel.app-brightgreen?style=for-the-badge&logo=vercel)](https://candi-suryahanjaya.vercel.app/)
 ![React](https://img.shields.io/badge/React-18.2.0-blue?style=for-the-badge&logo=react)
 ![Vite](https://img.shields.io/badge/Vite-4.2.0-purple?style=for-the-badge&logo=vite)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
@@ -10,6 +10,17 @@
 **CANDI - A modern, premium digital notes application with glassmorphism design, gradient themes, and advanced features.**
 
 </div>
+
+## 🌐 **Live Demo**
+
+**🚀 [Try CANDI Now](https://candi-suryahanjaya.vercel.app/)**
+
+Experience the full application with all features:
+- ✨ **Premium UI/UX** with glassmorphism design
+- 🌙 **Light/Dark Mode** with system detection
+- 📱 **Responsive Design** for all devices
+- 🎨 **Purple Gradient Theme** throughout
+- ⚡ **Fast Performance** with optimized loading
 
 ---
 
@@ -36,6 +47,9 @@
 ---
 
 ## 🚀 **Quick Start**
+
+### **🌐 Live Demo**
+**Try the application instantly: [https://candi-suryahanjaya.vercel.app/](https://candi-suryahanjaya.vercel.app/)**
 
 ### **Prerequisites**
 - Node.js 16+ 
