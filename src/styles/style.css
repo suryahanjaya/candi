@@ -152,8 +152,8 @@ header .navigation ul li {
 main {
   margin: 0 auto;
   padding: 80px 0 100px 0;
-  width: 90%;
-  max-width: 1200px;
+  width: 95%;
+  max-width: 1400px;
   position: relative;
   z-index: 1;
 }
@@ -979,9 +979,9 @@ main {
 }
 
 .candi-footer__content {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 16px;
   position: relative;
   z-index: 1;
   display: flex;
@@ -1006,7 +1006,7 @@ main {
   /* Main content */
   main {
     padding: 60px 0 80px 0;
-    width: 95%;
+    width: 98%;
   }
   
   /* Footer */
