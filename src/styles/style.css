@@ -56,6 +56,8 @@ body {
   color: var(--on-background);
   overflow-x: hidden;
   transition: all 0.3s ease;
+  max-height: 100vh;
+  overflow-y: hidden;
 }
 
 [data-theme="light"] body {
@@ -70,6 +72,9 @@ body {
   position: relative;
   overflow-x: hidden;
   max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
 }
 
 [data-theme="light"] .app-container {
@@ -144,15 +149,31 @@ main {
   z-index: 1;
   overflow-y: auto;
   max-height: calc(100vh - 200px);
+  flex: 1;
+  margin-bottom: 0;
+  scroll-behavior: smooth;
 }
 
+/* Scroll boundary to prevent reaching footer */
+.scroll-container {
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* Strict scroll boundary */
 .notes-list {
   margin-top: 32px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
-  padding: 16px 8px;
+  padding-bottom: 160px; /* Extra space to prevent scroll to footer */
+  margin-bottom: 40px; /* Additional margin to prevent footer scroll */
 }
+
+/* Removed duplicate .notes-list - using consolidated version above */
 
 .notes-list__empty-message {
   text-align: center;
@@ -1047,6 +1068,19 @@ main {
   z-index: 1000;
   width: calc(100% - 40px);
   max-width: 400px;
+}
+
+/* Prevent scroll beyond bottom navigation */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: transparent;
+  pointer-events: none;
+  z-index: 999;
 }
 
 .nav-item {
