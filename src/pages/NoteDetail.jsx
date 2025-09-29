@@ -74,9 +74,10 @@ const NoteDetail = () => {
       console.log('Updating date for note:', id, 'to:', selectedDate);
       setIsUpdatingDate(true);
       
-      // Update the note with new date
+      // Update the note with new date using editNote
       const newDate = new Date(selectedDate).toISOString();
-      editNote({ ...note, createdAt: newDate });
+      const updatedNote = { ...note, createdAt: newDate };
+      editNote(updatedNote);
       
       setShowSuccessMessage(true);
       setShowDatePicker(false);
