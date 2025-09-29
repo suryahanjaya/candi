@@ -229,6 +229,58 @@ main {
   align-items: start;
 }
 
+/* Tablet layout */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .notes-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .notes-item {
+    padding: 28px;
+  }
+  
+  .inline-nav {
+    gap: 16px;
+    padding: 12px 20px;
+  }
+  
+  .inline-nav .nav-item {
+    padding: 12px 16px;
+    min-width: 80px;
+  }
+}
+
+/* Laptop and desktop layout */
+@media screen and (min-width: 1025px) {
+  .notes-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  
+  .notes-item {
+    padding: 32px;
+  }
+  
+  .inline-nav {
+    gap: 20px;
+    padding: 16px 24px;
+  }
+  
+  .inline-nav .nav-item {
+    padding: 16px 20px;
+    min-width: 100px;
+  }
+  
+  .inline-nav .nav-icon {
+    font-size: 20px;
+  }
+  
+  .inline-nav .nav-label {
+    font-size: 12px;
+  }
+}
+
 /* Removed duplicate .notes-list - using consolidated version above */
 
 .notes-list__empty-message {
@@ -937,6 +989,111 @@ main {
   align-items: center;
   flex-wrap: wrap;
   gap: 32px;
+}
+
+/* Mobile layout */
+@media screen and (max-width: 768px) {
+  /* Header adjustments */
+  header {
+    padding: 12px 16px;
+    height: 56px;
+  }
+  
+  header h1 {
+    font-size: 24px;
+  }
+  
+  /* Main content */
+  main {
+    padding: 60px 0 80px 0;
+    width: 95%;
+  }
+  
+  /* Footer */
+  .candi-footer__content {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 24px;
+    padding: 0 16px;
+  }
+  
+  .candi-footer__brand {
+    justify-content: center;
+  }
+  
+  .candi-footer__developer {
+    justify-content: center;
+  }
+  
+  .candi-footer__logo {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .candi-footer__text h3 {
+    font-size: 20px;
+  }
+  
+  .candi-footer__text p {
+    font-size: 12px;
+  }
+  
+  .developer-info h4 {
+    font-size: 16px;
+  }
+  
+  .developer-info p {
+    font-size: 11px;
+  }
+  
+  .developer-social {
+    gap: 8px;
+  }
+  
+  .developer-social a {
+    padding: 6px;
+  }
+  
+  /* Mobile navigation */
+  .center-navigation {
+    margin: 24px 0 20px 0;
+  }
+  
+  .inline-nav {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .inline-nav .nav-item {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 12px 16px;
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .inline-nav .nav-icon {
+    margin-bottom: 0;
+    margin-right: 12px;
+  }
+  
+  .inline-nav .nav-label {
+    font-size: 14px;
+  }
+  
+  /* Notes list mobile */
+  .notes-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .notes-item {
+    padding: 20px;
+  }
 }
 
 .candi-footer__brand {
