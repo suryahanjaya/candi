@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { useNotes } from '../context/NotesContext';
 import NoteItem from '../components/NoteItem';
 import SearchBar from '../components/SearchBar';
+import { useLanguage } from '../context/LanguageContext';
 
 const ArchivedNotes = () => {
-  const { getArchived } = useNotes();
+  const { getArchived, loading } = useNotes();
   const [searchKeyword, setSearchKeyword] = useState('');
+  const { t } = useLanguage();
 
   const archivedNotes = useMemo(() => {
     const notes = getArchived();
@@ -20,10 +22,12 @@ const ArchivedNotes = () => {
 
   return (
     <div className="archived-notes-page">
-      <h2>Catatan Terarsip</h2>
+      <h2>{t('archive')}</h2>
       <SearchBar keyword={searchKeyword} onKeywordChange={setSearchKeyword} />
       <div className="notes-list">
-        {archivedNotes.length > 0 ? (
+        {loading ? (
+          <p className="loading">{t('loading')}</p>
+        ) : archivedNotes.length > 0 ? (
           archivedNotes.map(note => (
             <NoteItem key={note.id} note={note} />
           ))
@@ -36,14 +40,12 @@ const ArchivedNotes = () => {
                 <line x1="10" y1="12" x2="14" y2="12"/>
               </svg>
             </div>
-            <h3 className="empty-state__title">Arsip Kosong</h3>
-            <p className="empty-state__description">
-              Belum ada catatan yang diarsipkan. Arsipkan catatan untuk menyimpannya di sini.
-            </p>
+            <h3 className="empty-state__title">{t('archivedEmptyTitle')}</h3>
+            <p className="empty-state__description">{t('archivedEmptyDesc')}</p>
           </div>
         )}
       </div>
-      <Link to="/notes" className="action">Kembali ke Catatan Aktif</Link>
+      <Link to="/notes" className="action">{t('home')}</Link>
     </div>
   );
 };

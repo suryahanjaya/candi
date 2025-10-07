@@ -1,6 +1,8 @@
 import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const SearchBar = ({ keyword, onKeywordChange }) => {
+  const { t } = useLanguage();
   return (
     <div className="search-bar">
       <div className="search-bar__container">
@@ -10,7 +12,7 @@ const SearchBar = ({ keyword, onKeywordChange }) => {
         </svg>
         <input
           type="text"
-          placeholder="Cari catatan..."
+          placeholder={t('searchPlaceholder')}
           value={keyword}
           onChange={(e) => onKeywordChange(e.target.value)}
           className="search-bar__input"

@@ -2,31 +2,53 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { NotesProvider } from './context/NotesContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import NotesList from './pages/NotesList';
 import ArchivedNotes from './pages/ArchivedNotes';
 import NoteDetail from './pages/NoteDetail';
 import AddNote from './pages/AddNote';
 import NotFound from './pages/NotFound';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import FloatingActionButton from './components/FloatingActionButton';
 import ThemeToggle from './components/ThemeToggle';
+import LanguageToggle from './components/LanguageToggle';
+import { useLanguage as useLang } from './context/LanguageContext';
+import { useAuth as useAuthentication } from './context/AuthContext';
+
+const Protected = ({ children }) => {
+  const { isAuthenticated, initializing } = useAuth();
+  if (initializing) return <div className="loading">Memuat...</div>;
+  if (!isAuthenticated) return <Login />;
+  return children;
+};
 
 function App() {
   return (
     <ThemeProvider>
-      <NotesProvider>
-        <Router>
+      <LanguageProvider>
+        <AuthProvider>
+          <NotesProvider>
+            <Router>
           <div className="app-container">
             <header>
               <h1>CANDI</h1>
-              <ThemeToggle />
+              <div className="header-actions">
+                <LanguageToggle />
+                <ThemeToggle />
+                <HeaderAuthControls />
+              </div>
             </header>
             <main>
               <Routes>
-                <Route path="/" element={<NotesList />} />
-                <Route path="/notes" element={<NotesList />} />
-                <Route path="/notes/:id" element={<NoteDetail />} />
-                <Route path="/notes/new" element={<AddNote />} />
-                <Route path="/archives" element={<ArchivedNotes />} />
+                <Route path="/" element={<Protected><NotesList /></Protected>} />
+                <Route path="/notes" element={<Protected><NotesList /></Protected>} />
+                <Route path="/notes/:id" element={<Protected><NoteDetail /></Protected>} />
+                <Route path="/notes/new" element={<Protected><AddNote /></Protected>} />
+                <Route path="/archives" element={<Protected><ArchivedNotes /></Protected>} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
@@ -66,10 +88,21 @@ function App() {
             </div>
             <FloatingActionButton />
           </div>
-        </Router>
-      </NotesProvider>
+            </Router>
+          </NotesProvider>
+        </AuthProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }
+
+const HeaderAuthControls = () => {
+  const { isAuthenticated, logout } = useAuth();
+  const { t } = useLanguage();
+  if (!isAuthenticated) return null;
+  return (
+    <button className="logout-btn" onClick={logout}>{t('logout')}</button>
+  );
+};
 
 export default App;
