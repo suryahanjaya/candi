@@ -40,7 +40,7 @@ const NotesList = () => {
                 <polyline points="9,22 9,12 15,12 15,22"/>
               </svg>
             </div>
-            <span className="nav-label">Beranda</span>
+            <span className="nav-label">{t('home')}</span>
           </Link>
           <Link to="/notes/new" className="nav-item">
             <div className="nav-icon">
@@ -49,7 +49,7 @@ const NotesList = () => {
                 <line x1="5" y1="12" x2="19" y2="12"/>
               </svg>
             </div>
-            <span className="nav-label">Tambah</span>
+            <span className="nav-label">{t('add')}</span>
           </Link>
           <Link to="/archives" className="nav-item">
             <div className="nav-icon">
@@ -59,7 +59,7 @@ const NotesList = () => {
                 <line x1="10" y1="12" x2="14" y2="12"/>
               </svg>
             </div>
-            <span className="nav-label">Arsip</span>
+            <span className="nav-label">{t('archive')}</span>
           </Link>
         </div>
       </div>

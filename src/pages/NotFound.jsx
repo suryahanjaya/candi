@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 const NotFound = () => {
+  const { t } = useLanguage();
   return (
     <div className="not-found-page">
-      <h2>404 - Halaman Tidak Ditemukan</h2>
-      <p>Maaf, halaman yang Anda cari tidak ada.</p>
-      <Link to="/notes" className="action">Kembali ke Beranda</Link>
+      <h2>404</h2>
+      <p>{t('noteNotFound')}</p>
+      <Link to="/notes" className="action">{t('home')}</Link>
     </div>
   );
 };

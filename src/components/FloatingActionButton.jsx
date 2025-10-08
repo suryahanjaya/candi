@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const FloatingActionButton = () => {
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
   
   // Don't show FAB on add note page
   if (location.pathname === '/notes/new') {
     return null;
   }
+
+  if (!isAuthenticated) return null;
 
   return (
     <Link to="/notes/new" className="fab">

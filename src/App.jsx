@@ -14,8 +14,6 @@ import Register from './pages/Register';
 import FloatingActionButton from './components/FloatingActionButton';
 import ThemeToggle from './components/ThemeToggle';
 import LanguageToggle from './components/LanguageToggle';
-import { useLanguage as useLang } from './context/LanguageContext';
-import { useAuth as useAuthentication } from './context/AuthContext';
 
 const Protected = ({ children }) => {
   const { isAuthenticated, initializing } = useAuth();

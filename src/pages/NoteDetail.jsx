@@ -45,7 +45,9 @@ const NoteDetail = () => {
   };
 
   const handleSaveEdit = () => {
-    editNote({ ...note, title: editTitle, body: editBody });
+    // Client-side update only (API does not support editing)
+    const updated = { ...note, title: editTitle, body: editBody, updatedAt: new Date().toISOString() };
+    setNote(updated);
     setIsEditing(false);
   };
 
@@ -59,9 +61,19 @@ const NoteDetail = () => {
     setEditBody(e.target.textContent);
   };
 
-  const handleDelete = () => {
-    if (window.confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
-      deleteNote(id);
+  const handleDelete = async () => {
+    const result = await window.Swal.fire({
+      title: 'Hapus catatan?',
+      text: 'Tindakan ini tidak dapat dibatalkan',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, hapus',
+      cancelButtonText: 'Batal',
+      reverseButtons: true,
+    });
+    if (result.isConfirmed) {
+      await deleteNote(id);
+      await window.Swal.fire('Terhapus!', 'Catatan telah dihapus.', 'success');
       navigate('/notes');
     }
   };
@@ -90,10 +102,10 @@ const NoteDetail = () => {
       console.log('Updating date for note:', id, 'to:', selectedDate);
       setIsUpdatingDate(true);
       
-      // Update the note with new date using editNote
+      // Client-side update only (API does not support date editing)
       const newDate = new Date(selectedDate).toISOString();
-      const updatedNote = { ...note, createdAt: newDate };
-      editNote(updatedNote);
+      const updatedNote = { ...note, createdAt: newDate, updatedAt: new Date().toISOString() };
+      setNote(updatedNote);
       
       setShowSuccessMessage(true);
       setShowDatePicker(false);
@@ -194,19 +206,29 @@ const NoteDetail = () => {
           </p>
           <div className="note-detail__body">{parser(note.body)}</div>
           <div className="note-detail__actions">
-            <button onClick={handleEdit} className="action">{t('edit')}</button>
+            <button onClick={handleEdit} className="action" title={t('edit')} aria-label={t('edit')}>
+              <i className="fa-solid fa-pen"></i>
+            </button>
             <button 
               onClick={handleUpdateDate} 
               className="action"
               disabled={isUpdatingDate}
+              title={t('changeDate')}
+              aria-label={t('changeDate')}
             >
-              {isUpdatingDate ? t('updating') : t('changeDate')}
+              <i className="fa-regular fa-calendar"></i>
             </button>
-            <button onClick={handleDelete} className="action action--delete">{t('delete')}</button>
+            <button onClick={handleDelete} className="action action--delete" title={t('delete')} aria-label={t('delete')}>
+              <i className="fa-solid fa-trash"></i>
+            </button>
             {note.archived ? (
-              <button onClick={handleUnarchive} className="action">{t('unarchive')}</button>
+              <button onClick={handleUnarchive} className="action" title={t('unarchive')} aria-label={t('unarchive')}>
+                <i className="fa-solid fa-box-open"></i>
+              </button>
             ) : (
-              <button onClick={handleArchive} className="action">{t('archiveAction')}</button>
+              <button onClick={handleArchive} className="action" title={t('archiveAction')} aria-label={t('archiveAction')}>
+                <i className="fa-solid fa-box-archive"></i>
+              </button>
             )}
           </div>
         </>
