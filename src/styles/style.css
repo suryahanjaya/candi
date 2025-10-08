@@ -933,25 +933,31 @@ main {
   }
   
   .candi-footer__brand {
-    justify-content: center;
+    justify-content: flex-start;
+    order: 1;
   }
   
-  .candi-footer__developer {
-    justify-content: center;
+  .candi-footer__center {
+    order: 2;
+  }
+  
+  .candi-footer__social {
+    order: 3;
+    justify-content: flex-end;
   }
   
   .candi-footer__logo {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
   }
   
   .candi-footer__text h3 {
-    font-size: 20px;
+    font-size: 14px;
   }
   
   .candi-footer__text p {
-    font-size: 12px;
+    font-size: 9px;
   }
   
   .developer-info h4 {
@@ -1847,10 +1853,10 @@ main {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 8px;
-  min-height: 40px;
+  gap: 16px;
+  min-height: 50px;
 }
 
 /* Responsive Footer Centering */
@@ -1886,6 +1892,8 @@ main {
   gap: 8px;
   align-items: center;
   justify-content: flex-end;
+  flex: 1;
+  padding-right: 12px;
 }
 
 .candi-footer__social a {
@@ -1909,8 +1917,13 @@ main {
 }
 
 .candi-footer__center {
-    text-align: center;
+  text-align: center;
   color: var(--on-background);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .candi-footer__center h4 {
@@ -1929,27 +1942,29 @@ main {
 .candi-footer__brand {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 12px;
+  flex: 1;
+  padding-left: 12px;
 }
 
 .candi-footer__logo {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   background: var(--primary);
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 8px rgba(106, 0, 255, 0.3);
 }
 
 .candi-footer__text h3 {
   color: var(--on-background);
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 700;
   margin: 0;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -1957,7 +1972,7 @@ main {
 
 .candi-footer__text p {
   color: var(--on-background-grey);
-  font-size: 5px;
+  font-size: 9px;
   margin: 1px 0 0 0;
   font-weight: 500;
 }
