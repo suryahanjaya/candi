@@ -71,17 +71,17 @@ const NoteDetail = () => {
 
   const handleDelete = async () => {
     const result = await window.Swal.fire({
-      title: 'Hapus catatan?',
-      text: 'Tindakan ini tidak dapat dibatalkan',
+      title: t('deleteNote'),
+      text: t('deleteWarning'),
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Ya, hapus',
-      cancelButtonText: 'Batal',
+      confirmButtonText: t('yesDelete'),
+      cancelButtonText: t('cancel'),
       reverseButtons: true,
     });
     if (result.isConfirmed) {
       await deleteNote(id);
-      await window.Swal.fire('Terhapus!', 'Catatan telah dihapus.', 'success');
+      await window.Swal.fire(t('deleted'), t('noteDeleted'), 'success');
       navigate('/notes');
     }
   };
@@ -198,7 +198,7 @@ const NoteDetail = () => {
               id="edit-body"
               className="content-editable"
               contentEditable
-              data-placeholder="Tulis isi catatan di sini..."
+              data-placeholder={t('writeNoteHere')}
               onInput={handleBodyChange}
             >
               {editBody}
@@ -224,6 +224,7 @@ const NoteDetail = () => {
           <div className="note-detail__actions">
             <button onClick={handleEdit} className="action" title={t('edit')} aria-label={t('edit')}>
               <i className="fa-solid fa-pen"></i>
+              <span className="action-text">{t('edit')}</span>
             </button>
             <button 
               onClick={handleUpdateDate} 
@@ -233,17 +234,21 @@ const NoteDetail = () => {
               aria-label={t('changeDate')}
             >
               <i className="fa-regular fa-calendar"></i>
+              <span className="action-text">{t('changeDate')}</span>
             </button>
             <button onClick={handleDelete} className="action action--delete" title={t('delete')} aria-label={t('delete')}>
               <i className="fa-solid fa-trash"></i>
+              <span className="action-text">{t('delete')}</span>
             </button>
             {note.archived ? (
               <button onClick={handleUnarchive} className="action" title={t('unarchive')} aria-label={t('unarchive')}>
                 <i className="fa-solid fa-box-open"></i>
+                <span className="action-text">{t('unarchive')}</span>
               </button>
             ) : (
               <button onClick={handleArchive} className="action" title={t('archiveAction')} aria-label={t('archiveAction')}>
                 <i className="fa-solid fa-box-archive"></i>
+                <span className="action-text">{t('archiveAction')}</span>
               </button>
             )}
           </div>

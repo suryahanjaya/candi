@@ -56,6 +56,12 @@ const messages = {
     dontHaveAccount: 'Belum punya akun? Daftar',
     passwordStrength: 'Kekuatan Password',
     showPassword: 'TAMPILKAN',
+    deleteNote: 'Hapus catatan?',
+    deleteWarning: 'Tindakan ini tidak dapat dibatalkan',
+    yesDelete: 'Ya, hapus',
+    deleted: 'Terhapus!',
+    noteDeleted: 'Catatan telah dihapus.',
+    writeNoteHere: 'Tulis isi catatan di sini...',
   },
   en: {
     appTitle: 'CANDI',
@@ -108,6 +114,12 @@ const messages = {
     dontHaveAccount: "Don't have an account? Sign up",
     passwordStrength: 'Password strength',
     showPassword: 'SHOW',
+    deleteNote: 'Delete note?',
+    deleteWarning: 'This action cannot be undone',
+    yesDelete: 'Yes, delete',
+    deleted: 'Deleted!',
+    noteDeleted: 'Note has been deleted.',
+    writeNoteHere: 'Write your note content here...',
   },
 };
 
