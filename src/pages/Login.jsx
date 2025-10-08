@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useInput from '../hooks/useInput';
 import { useAuth } from '../context/AuthContext';
@@ -7,6 +7,7 @@ import { useLanguage } from '../context/LanguageContext';
 const Login = () => {
   const [email, onEmailChange] = useInput('');
   const [password, onPasswordChange] = useInput('');
+  const [showPassword, setShowPassword] = useState(false);
   const { login, authLoading, authError, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { t } = useLanguage();
@@ -46,8 +47,20 @@ const Login = () => {
           <div className="input-group">
             <label htmlFor="password">{t('password')}</label>
             <div className="password-container">
-              <input id="password" type="password" value={password} onChange={onPasswordChange} required />
-              <button type="button" className="show-password">{t('showPassword')}</button>
+              <input 
+                id="password" 
+                type={showPassword ? "text" : "password"} 
+                value={password} 
+                onChange={onPasswordChange} 
+                required 
+              />
+              <button 
+                type="button" 
+                className="show-password"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? 'HIDE' : t('showPassword')}
+              </button>
             </div>
           </div>
           <div className="form-options">

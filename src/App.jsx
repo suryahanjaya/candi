@@ -31,7 +31,6 @@ function App() {
             <Router>
           <div className="app-container">
             <header>
-              <h1>CANDI</h1>
               <div className="header-actions">
                 <LanguageToggle />
                 <ThemeToggle />

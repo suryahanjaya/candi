@@ -84,9 +84,14 @@ body {
   display: flex;
   height: 100vh;
   overflow: hidden;
+  background: linear-gradient(135deg, #0D0D0D 0%, #1a0a2e 25%, #16213e 50%, #0f3460 75%, #0D0D0D 100%);
 }
 
-/* Hide footer on auth pages */
+[data-theme="light"] .auth-page {
+  background: linear-gradient(135deg, #F8F9FA 0%, #E3F2FD 25%, #E8EAF6 50%, #F3E5F5 75%, #F8F9FA 100%);
+}
+
+/* Hide footer on auth pages only */
 .auth-page ~ .candi-footer {
   display: none;
 }
@@ -124,7 +129,7 @@ header {
   right: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 12px 24px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(40px);
@@ -339,7 +344,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 60px;
+  padding: 40px 60px 60px 60px;
   position: relative;
   z-index: 1;
 }
@@ -349,10 +354,10 @@ main {
   max-width: 420px;
   background: white;
   border-radius: 16px;
-  padding: 32px;
+  padding: 24px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.1);
   position: relative;
-  max-height: 85vh;
+  max-height: 65vh;
   overflow-y: auto;
 }
 
@@ -558,15 +563,15 @@ main {
   transition: all 0.3s ease;
 }
 
-.strength-bar:nth-child(1) {
+.strength-bar.active:nth-child(1) {
   background: #e5484d;
 }
 
-.strength-bar:nth-child(2) {
+.strength-bar.active:nth-child(2) {
   background: #f59e0b;
 }
 
-.strength-bar:nth-child(3) {
+.strength-bar.active:nth-child(3) {
   background: #10b981;
 }
 
@@ -634,12 +639,13 @@ main {
   }
   
   .auth-form-container {
-    padding: 20px 16px;
+    padding: 20px 16px 40px 16px;
   }
   
   .auth-form.enhanced {
     max-width: 100%;
     padding: 28px 20px;
+    max-height: 80vh;
   }
   
   /* Header adjustments */
