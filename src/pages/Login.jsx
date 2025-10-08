@@ -51,7 +51,7 @@ const Login = () => {
         <form onSubmit={onSubmit} className="auth-form enhanced">
           <h2>{t('signIn')}</h2>
           <div className="input-group">
-            <label htmlFor="email">{t('userName')}</label>
+            <label htmlFor="email">{t('email')}</label>
             <input id="email" type="email" value={email} onChange={onEmailChange} required />
           </div>
           <div className="input-group">
@@ -72,13 +72,6 @@ const Login = () => {
                 {showPassword ? 'HIDE' : t('showPassword')}
               </button>
             </div>
-          </div>
-          <div className="form-options">
-            <div className="remember-me">
-              <input type="checkbox" id="remember" />
-              <label htmlFor="remember">{t('rememberMe')}</label>
-            </div>
-            <a href="#" className="forgot-password">{t('forgotPassword')}</a>
           </div>
           {authError && <p className="form-error">{authError}</p>}
           <div className="form-actions">
