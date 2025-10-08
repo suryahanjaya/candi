@@ -14,6 +14,7 @@ import Register from './pages/Register';
 import FloatingActionButton from './components/FloatingActionButton';
 import ThemeToggle from './components/ThemeToggle';
 import LanguageToggle from './components/LanguageToggle';
+import UserProfile from './components/UserProfile';
 
 const Protected = ({ children }) => {
   const { isAuthenticated, initializing } = useAuth();
@@ -35,7 +36,7 @@ function App() {
               <div className="header-actions">
                 <LanguageToggle />
                 <ThemeToggle />
-                <HeaderAuthControls />
+                <UserProfile />
               </div>
             </header>
             <main>
@@ -92,25 +93,5 @@ function App() {
   );
 }
 
-const HeaderAuthControls = () => {
-  const { isAuthenticated, logout, deleteAccount } = useAuth();
-  const { t } = useLanguage();
-  
-  const handleDeleteAccount = () => {
-    if (window.confirm(t('deleteAccountConfirm'))) {
-      deleteAccount();
-    }
-  };
-  
-  if (!isAuthenticated) return null;
-  return (
-    <div className="header-auth-controls">
-      <button className="delete-account-btn" onClick={handleDeleteAccount} title={t('deleteAccount')}>
-        <i className="fas fa-trash-alt"></i>
-      </button>
-      <button className="logout-btn" onClick={logout}>{t('logout')}</button>
-    </div>
-  );
-};
 
 export default App;

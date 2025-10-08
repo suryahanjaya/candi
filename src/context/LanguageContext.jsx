@@ -71,6 +71,10 @@ const messages = {
     failedLoadNotes: 'Gagal memuat catatan',
     welcomeNoteTitle: 'Selamat Datang di CANDI!',
     welcomeNoteBody: 'Halo! Selamat datang di CANDI - Catatan Digital Anda. Di sini Anda dapat membuat, mengelola, dan mengarsipkan catatan dengan mudah. Mulai produktivitas Anda hari ini dengan menulis catatan pertama Anda!',
+    goodMorning: 'Selamat Pagi',
+    goodAfternoon: 'Selamat Siang',
+    goodEvening: 'Selamat Malam',
+    welcomeBackMessage: 'Selamat datang kembali! Mari kelola catatan Anda hari ini.',
   },
   en: {
     appTitle: 'CANDI',
@@ -138,6 +142,10 @@ const messages = {
     failedLoadNotes: 'Failed to load notes',
     welcomeNoteTitle: 'Welcome to CANDI!',
     welcomeNoteBody: 'Hello! Welcome to CANDI - Your Digital Notes. Here you can create, manage, and archive notes easily. Start your productivity today by writing your first note!',
+    goodMorning: 'Good Morning',
+    goodAfternoon: 'Good Afternoon',
+    goodEvening: 'Good Evening',
+    welcomeBackMessage: 'Welcome back! Let\'s manage your notes today.',
   },
 };
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useNotes } from '../context/NotesContext';
 import NoteItem from '../components/NoteItem';
 import SearchBar from '../components/SearchBar';
+import UserWelcomeNav from '../components/UserWelcomeNav';
 import { useLanguage } from '../context/LanguageContext';
 
 const ArchivedNotes = () => {
@@ -22,6 +23,7 @@ const ArchivedNotes = () => {
 
   return (
     <div className="archived-notes-page">
+      <UserWelcomeNav />
       <h2>{t('archive')}</h2>
       <SearchBar keyword={searchKeyword} onKeywordChange={setSearchKeyword} />
       <div className="notes-list">
