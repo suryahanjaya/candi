@@ -291,6 +291,7 @@ main {
   border-radius: 50%;
   background: transparent;
   animation: float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .graphic-circle::before {
@@ -332,6 +333,7 @@ main {
   top: 30%;
   right: 20%;
   animation: rotate 8s linear infinite;
+  will-change: transform;
 }
 
 .graphic-square {
@@ -343,6 +345,7 @@ main {
   top: 70%;
   left: 20%;
   animation: pulse 4s ease-in-out infinite;
+  will-change: transform;
 }
 
 /* Additional graphics for full page coverage */
@@ -845,10 +848,23 @@ main {
   }
   
   .welcome-graphics {
-    opacity: 0.1;
+    opacity: 0.2;
     z-index: 1;
     top: 2.5%;
     height: 97.5vh;
+    display: block;
+  }
+  
+  /* Mobile animation optimization */
+  .graphic-circle,
+  .graphic-triangle,
+  .graphic-square {
+    animation-duration: 8s;
+    animation-timing-function: ease-in-out;
+  }
+  
+  .graphic-circle::before {
+    animation-duration: 4s;
   }
   
   .auth-welcome {
