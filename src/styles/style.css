@@ -85,18 +85,6 @@ body {
   height: 100vh;
   overflow: hidden;
   background: linear-gradient(135deg, #0D0D0D 0%, #1a0a2e 25%, #16213e 50%, #0f3460 75%, #0D0D0D 100%);
-  animation: pageSlideIn 0.6s ease-out;
-}
-
-@keyframes pageSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }
 
 [data-theme="light"] .auth-page {
@@ -257,18 +245,6 @@ main {
   text-align: center;
   position: relative;
   z-index: 1;
-  animation: welcomeSlideIn 0.8s ease-out 0.2s both;
-}
-
-@keyframes welcomeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }
 
 .auth-welcome h1 {
@@ -384,17 +360,21 @@ main {
   position: relative;
   max-height: 90vh;
   overflow: visible;
-  animation: formSlideIn 0.8s ease-out 0.4s both;
+  animation: formSlideIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
 }
 
 @keyframes formSlideIn {
-  from {
+  0% {
     opacity: 0;
-    transform: translateX(50px) scale(0.95);
+    transform: translateY(30px) scale(0.9);
   }
-  to {
+  50% {
+    opacity: 0.8;
+    transform: translateY(-5px) scale(0.98);
+  }
+  100% {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -1611,6 +1591,7 @@ main {
 .candi-footer {
   background: var(--gradient-primary);
   padding: 6px 0;
+  margin-bottom: 8px;
   position: relative;
   overflow: hidden;
 }
