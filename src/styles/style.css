@@ -2071,6 +2071,64 @@ main {
   box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
 }
 
+/* Light theme welcome text styling */
+[data-theme="light"] .auth-welcome h1 {
+  color: #8B5CF6;
+  text-shadow: none;
+}
+
+[data-theme="light"] .auth-welcome h2 {
+  color: #8B5CF6;
+  text-shadow: none;
+}
+
+[data-theme="light"] .auth-welcome p {
+  color: var(--on-background-grey);
+  text-shadow: none;
+}
+
+/* Remove text shadows for all black text in light mode */
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6,
+[data-theme="light"] p,
+[data-theme="light"] span,
+[data-theme="light"] div,
+[data-theme="light"] label,
+[data-theme="light"] .notes-item__title,
+[data-theme="light"] .notes-item__body,
+[data-theme="light"] .notes-item__date,
+[data-theme="light"] .candi-footer__text h3,
+[data-theme="light"] .candi-footer__text p,
+[data-theme="light"] .candi-footer__center h4,
+[data-theme="light"] .candi-footer__center p,
+[data-theme="light"] .developer-info h4,
+[data-theme="light"] .developer-info p,
+[data-theme="light"] .nav-label,
+[data-theme="light"] .search-bar,
+[data-theme="light"] .content-editable {
+  text-shadow: none !important;
+}
+
+/* Light theme action links (Don't have account? / Already have account?) */
+[data-theme="light"] .auth-form.enhanced .form-actions .action--link {
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--on-background);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  text-shadow: none;
+  opacity: 0.5;
+}
+
+[data-theme="light"] .auth-form.enhanced .form-actions .action--link:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: var(--neon-violet);
+  opacity: 0.8;
+  text-shadow: none;
+}
+
 /* CANDI Footer */
 .candi-footer {
   background: rgba(255, 255, 255, 0.08);
