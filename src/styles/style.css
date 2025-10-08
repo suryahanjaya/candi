@@ -210,7 +210,7 @@ main {
 /* Auth pages: split-screen modern layout */
 .auth-page {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   position: relative;
   overflow: hidden;
 }
@@ -222,7 +222,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 60px 40px;
+  padding: 40px;
   color: white;
   text-align: center;
   position: relative;
@@ -230,24 +230,24 @@ main {
 }
 
 .auth-welcome h1 {
-  font-size: 48px;
+  font-size: 36px;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .auth-welcome h2 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   opacity: 0.9;
 }
 
 .auth-welcome p {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.5;
   opacity: 0.8;
-  max-width: 400px;
+  max-width: 350px;
 }
 
 .auth-form-container {
@@ -255,42 +255,44 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 20px;
   position: relative;
   z-index: 1;
 }
 
 .auth-form.enhanced {
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
   background: white;
-  border-radius: 20px;
-  padding: 40px;
+  border-radius: 16px;
+  padding: 32px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.1);
   position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .auth-form.enhanced h2 {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: #333;
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .auth-form.enhanced .form-subtitle {
-  font-size: 14px;
+  font-size: 12px;
   color: #666;
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   line-height: 1.4;
 }
 
 .auth-form.enhanced .input-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 6px;
+  margin-bottom: 16px;
   text-align: left;
 }
 
@@ -304,12 +306,12 @@ main {
 
 .auth-form.enhanced .input-group input {
   width: 100%;
-  padding: 14px 16px;
+  padding: 12px 14px;
   border: 1px solid #e1e5e9;
   background: #fff;
   color: #333;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
   transition: all 0.3s ease;
 }
 
@@ -345,7 +347,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .auth-form.enhanced .remember-me {
@@ -380,16 +382,16 @@ main {
 .auth-form.enhanced .form-actions {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 24px;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .auth-form.enhanced .form-actions .action {
   width: 100%;
-  padding: 14px 20px;
+  padding: 12px 18px;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   transition: all 0.3s ease;
   text-align: center;
   text-decoration: none;
