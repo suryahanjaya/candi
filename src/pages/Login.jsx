@@ -25,38 +25,44 @@ const Login = () => {
   return (
     <div className="auth-page">
       <div className="auth-welcome">
-        <h1>WELCOME</h1>
-        <h2>YOUR HEADLINE NAME</h2>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+        <div className="welcome-graphics">
+          <div className="graphic-circle circle-1"></div>
+          <div className="graphic-circle circle-2"></div>
+          <div className="graphic-triangle"></div>
+          <div className="graphic-square"></div>
+        </div>
+        <h1>{t('welcome')}</h1>
+        <h2>{t('headline')}</h2>
+        <p>{t('description')}</p>
       </div>
       <div className="auth-form-container">
         <form onSubmit={onSubmit} className="auth-form enhanced">
-          <h2>Sign in</h2>
-          <p className="form-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+          <h2>{t('signIn')}</h2>
+          <p className="form-subtitle">{t('description')}</p>
           <div className="input-group">
-            <label htmlFor="email">User name</label>
+            <label htmlFor="email">{t('userName')}</label>
             <input id="email" type="email" value={email} onChange={onEmailChange} required />
           </div>
           <div className="input-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('password')}</label>
             <div className="password-container">
               <input id="password" type="password" value={password} onChange={onPasswordChange} required />
-              <button type="button" className="show-password">SHOW</button>
+              <button type="button" className="show-password">{t('showPassword')}</button>
             </div>
           </div>
           <div className="form-options">
             <div className="remember-me">
               <input type="checkbox" id="remember" />
-              <label htmlFor="remember">Remember me</label>
+              <label htmlFor="remember">{t('rememberMe')}</label>
             </div>
-            <a href="#" className="forgot-password">Forgot Password?</a>
+            <a href="#" className="forgot-password">{t('forgotPassword')}</a>
           </div>
           {authError && <p className="form-error">{authError}</p>}
           <div className="form-actions">
             <button type="submit" className="action" disabled={authLoading}>
-              {authLoading ? 'Signing in...' : 'Sign in'}
+              {authLoading ? 'Signing in...' : t('signInButton')}
             </button>
-            <Link to="/register" className="action action--link">Don't have an account? Sign up</Link>
+            <Link to="/register" className="action action--link">{t('dontHaveAccount')}</Link>
           </div>
         </form>
       </div>

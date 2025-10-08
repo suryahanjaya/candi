@@ -30,44 +30,58 @@ const Register = () => {
   return (
     <div className="auth-page">
       <div className="auth-welcome">
-        <h1>WELCOME</h1>
-        <h2>YOUR HEADLINE NAME</h2>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+        <div className="welcome-graphics">
+          <div className="graphic-circle circle-1"></div>
+          <div className="graphic-circle circle-2"></div>
+          <div className="graphic-triangle"></div>
+          <div className="graphic-square"></div>
+        </div>
+        <h1>{t('welcome')}</h1>
+        <h2>{t('headline')}</h2>
+        <p>{t('description')}</p>
       </div>
       <div className="auth-form-container">
         <form onSubmit={onSubmit} className="auth-form enhanced">
-          <h2>Sign up</h2>
-          <p className="form-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+          <h2>{t('signUp')}</h2>
+          <p className="form-subtitle">{t('description')}</p>
           <div className="input-group">
-            <label htmlFor="name">Full name</label>
+            <label htmlFor="name">{t('fullName')}</label>
             <input id="name" type="text" value={name} onChange={onNameChange} required placeholder="John Doe" />
           </div>
           <div className="input-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t('email')}</label>
             <input id="email" type="email" value={email} onChange={onEmailChange} required placeholder="john@example.com" />
           </div>
           <div className="input-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('createPassword')}</label>
             <div className="password-container">
               <input id="password" type="password" value={password} onChange={onPasswordChange} required minLength={6} placeholder="••••••" />
-              <button type="button" className="show-password">SHOW</button>
+              <button type="button" className="show-password">{t('showPassword')}</button>
             </div>
             <small className="hint">Password min 6 characters</small>
+            <div className="password-strength">
+              <span className="strength-label">{t('passwordStrength')}</span>
+              <div className="strength-bars">
+                <div className="strength-bar"></div>
+                <div className="strength-bar"></div>
+                <div className="strength-bar"></div>
+              </div>
+            </div>
           </div>
           <div className="input-group">
-            <label htmlFor="confirm">Confirm Password</label>
+            <label htmlFor="confirm">{t('confirmPasswordLabel')}</label>
             <div className="password-container">
               <input id="confirm" type="password" value={confirm} onChange={onConfirmChange} required placeholder="••••••" />
-              <button type="button" className="show-password">SHOW</button>
+              <button type="button" className="show-password">{t('showPassword')}</button>
             </div>
             {passwordMismatch && <small className="error">Passwords don't match</small>}
           </div>
           {authError && <p className="form-error">{authError}</p>}
           <div className="form-actions">
             <button type="submit" className="action" disabled={authLoading || passwordMismatch}>
-              {authLoading ? 'Creating account...' : 'Sign up'}
+              {authLoading ? 'Creating account...' : t('signUpButton')}
             </button>
-            <Link to="/login" className="action action--link">Already have an account? Sign in</Link>
+            <Link to="/login" className="action action--link">{t('alreadyHaveAccount')}</Link>
           </div>
         </form>
       </div>
