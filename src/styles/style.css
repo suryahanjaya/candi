@@ -141,7 +141,13 @@ header {
   align-items: center;
 }
 
-.lang-toggle, .logout-btn {
+.header-auth-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.lang-toggle, .logout-btn, .delete-account-btn {
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.06);
   padding: 4px 8px;
@@ -149,12 +155,37 @@ header {
   cursor: pointer;
   color: var(--on-background);
   font-size: 12px;
+  transition: all 0.3s ease;
 }
 
-[data-theme="light"] .lang-toggle, [data-theme="light"] .logout-btn {
+.delete-account-btn {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
+}
+
+.delete-account-btn:hover {
+  background: rgba(255, 107, 107, 0.2);
+  border-color: rgba(255, 107, 107, 0.5);
+  transform: scale(1.05);
+}
+
+[data-theme="light"] .lang-toggle, [data-theme="light"] .logout-btn, [data-theme="light"] .delete-account-btn {
   border-color: rgba(59, 130, 246, 0.3);
   background: rgba(59, 130, 246, 0.1);
   color: var(--on-background);
+}
+
+[data-theme="light"] .delete-account-btn {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
+}
+
+[data-theme="light"] .delete-account-btn:hover {
+  background: rgba(255, 107, 107, 0.2);
+  border-color: rgba(255, 107, 107, 0.5);
+  transform: scale(1.05);
 }
 
 .auth-form.enhanced .input-group input {

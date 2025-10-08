@@ -92,11 +92,23 @@ function App() {
 }
 
 const HeaderAuthControls = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, deleteAccount } = useAuth();
   const { t } = useLanguage();
+  
+  const handleDeleteAccount = () => {
+    if (window.confirm(t('deleteAccountConfirm'))) {
+      deleteAccount();
+    }
+  };
+  
   if (!isAuthenticated) return null;
   return (
-    <button className="logout-btn" onClick={logout}>{t('logout')}</button>
+    <div className="header-auth-controls">
+      <button className="delete-account-btn" onClick={handleDeleteAccount} title={t('deleteAccount')}>
+        <i className="fas fa-trash-alt"></i>
+      </button>
+      <button className="logout-btn" onClick={logout}>{t('logout')}</button>
+    </div>
   );
 };
 

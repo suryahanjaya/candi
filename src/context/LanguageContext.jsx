@@ -62,6 +62,8 @@ const messages = {
     deleted: 'Terhapus!',
     noteDeleted: 'Catatan telah dihapus.',
     writeNoteHere: 'Tulis isi catatan di sini...',
+    deleteAccount: 'Hapus Akun',
+    deleteAccountConfirm: 'Hapus akun dan semua catatan? Tindakan ini tidak dapat dibatalkan!',
   },
   en: {
     appTitle: 'CANDI',
@@ -120,6 +122,8 @@ const messages = {
     deleted: 'Deleted!',
     noteDeleted: 'Note has been deleted.',
     writeNoteHere: 'Write your note content here...',
+    deleteAccount: 'Delete Account',
+    deleteAccountConfirm: 'Delete account and all notes? This action cannot be undone!',
   },
 };
 

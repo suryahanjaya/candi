@@ -36,6 +36,13 @@ export const AuthProvider = ({ children }) => {
     setAuthLoading(true);
     setAuthError('');
     try {
+      // Check if email is in deleted emails list
+      const deletedEmails = JSON.parse(localStorage.getItem('deletedEmails') || '[]');
+      if (deletedEmails.includes(email)) {
+        setAuthError('Akun dengan email ini telah dihapus. Silakan daftar ulang.');
+        return false;
+      }
+
       const { error, data } = await apiLogin({ email, password });
       if (error || !data?.accessToken) {
         setAuthError('Login gagal');
@@ -61,6 +68,11 @@ export const AuthProvider = ({ children }) => {
     setAuthLoading(true);
     setAuthError('');
     try {
+      // Remove email from deleted emails list if user re-registers
+      const deletedEmails = JSON.parse(localStorage.getItem('deletedEmails') || '[]');
+      const updatedDeletedEmails = deletedEmails.filter(deletedEmail => deletedEmail !== email);
+      localStorage.setItem('deletedEmails', JSON.stringify(updatedDeletedEmails));
+
       const { error } = await apiRegister({ name, email, password });
       if (error) {
         setAuthError('Registrasi gagal');
@@ -80,6 +92,24 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const deleteAccount = () => {
+    // Clear all user data from localStorage
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('notes');
+    localStorage.removeItem('theme');
+    localStorage.removeItem('language');
+    localStorage.removeItem('user');
+    
+    // Add deleted email to prevent re-login
+    const deletedEmails = JSON.parse(localStorage.getItem('deletedEmails') || '[]');
+    if (user?.email && !deletedEmails.includes(user.email)) {
+      deletedEmails.push(user.email);
+      localStorage.setItem('deletedEmails', JSON.stringify(deletedEmails));
+    }
+    
+    setUser(null);
+  };
+
   const value = useMemo(() => ({
     user,
     initializing,
@@ -88,6 +118,7 @@ export const AuthProvider = ({ children }) => {
     login: handleLogin,
     register: handleRegister,
     logout,
+    deleteAccount,
     isAuthenticated: Boolean(user),
   }), [user, initializing, authLoading, authError]);
 
