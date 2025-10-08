@@ -73,6 +73,24 @@ body {
   flex-direction: column;
 }
 
+/* Override for auth pages to use full viewport */
+.auth-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Hide footer on auth pages */
+.auth-page ~ .candi-footer {
+  display: none;
+}
+
 [data-theme="light"] .app-container {
   background: linear-gradient(135deg, #F8F9FA 0%, #E3F2FD 25%, #E8EAF6 50%, #F3E5F5 75%, #F8F9FA 100%);
 }
@@ -208,12 +226,6 @@ main {
 }
 
 /* Auth pages: split-screen modern layout */
-.auth-page {
-  display: flex;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-}
 
 
 .auth-welcome {
@@ -473,6 +485,109 @@ main {
   .auth-form.enhanced {
     max-width: 100%;
     padding: 32px 24px;
+  }
+  
+  /* Header adjustments */
+  header {
+    padding: 12px 16px;
+    height: 56px;
+  }
+  
+  header h1 {
+    font-size: 24px;
+  }
+  
+  /* Main content */
+  main {
+    padding: 60px 0 80px 0;
+    width: 98%;
+  }
+  
+  /* Footer */
+  .candi-footer__content {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 24px;
+    padding: 0 16px;
+  }
+  
+  .candi-footer__brand {
+    justify-content: center;
+  }
+  
+  .candi-footer__developer {
+    justify-content: center;
+  }
+  
+  .candi-footer__logo {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .candi-footer__text h3 {
+    font-size: 20px;
+  }
+  
+  .candi-footer__text p {
+    font-size: 12px;
+  }
+  
+  .developer-info h4 {
+    font-size: 16px;
+  }
+  
+  .developer-info p {
+    font-size: 11px;
+  }
+  
+  .developer-social {
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  .developer-social a {
+    padding: 6px;
+  }
+  
+  /* Mobile navigation */
+  .center-navigation {
+    margin: 24px 0 40px 0;
+  }
+  
+  .inline-nav {
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .inline-nav .nav-item {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 12px 16px;
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .inline-nav .nav-icon {
+    margin-bottom: 0;
+    margin-right: 12px;
+  }
+  
+  .inline-nav .nav-label {
+    font-size: 14px;
+  }
+  
+  /* Notes list mobile */
+  .notes-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .notes-item {
+    padding: 20px;
   }
 }
 
@@ -1295,7 +1410,6 @@ main {
 .candi-footer {
   background: var(--gradient-primary);
   padding: 32px 0;
-  margin-top: 48px;
   position: relative;
   overflow: hidden;
 }
@@ -1326,111 +1440,7 @@ main {
   gap: 32px;
 }
 
-/* Mobile layout */
-@media screen and (max-width: 768px) {
-  /* Header adjustments */
-  header {
-    padding: 12px 16px;
-    height: 56px;
-  }
-  
-  header h1 {
-    font-size: 24px;
-  }
-  
-  /* Main content */
-  main {
-    padding: 60px 0 80px 0;
-    width: 98%;
-  }
-  
-  /* Footer */
-  .candi-footer__content {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    gap: 24px;
-    padding: 0 16px;
-  }
-  
-  .candi-footer__brand {
-    justify-content: center;
-  }
-  
-  .candi-footer__developer {
-    justify-content: center;
-  }
-  
-  .candi-footer__logo {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-  }
-  
-  .candi-footer__text h3 {
-    font-size: 20px;
-  }
-  
-  .candi-footer__text p {
-    font-size: 12px;
-  }
-  
-  .developer-info h4 {
-    font-size: 16px;
-  }
-  
-  .developer-info p {
-    font-size: 11px;
-  }
-  
-  .developer-social {
-    gap: 8px;
-    justify-content: center;
-  }
-  
-  .developer-social a {
-    padding: 6px;
-  }
-  
-  /* Mobile navigation */
-  .center-navigation {
-    margin: 24px 0 40px 0;
-  }
-  
-  .inline-nav {
-    flex-direction: column;
-    gap: 5px;
-    width: 100%;
-    max-width: 280px;
-  }
-  
-  .inline-nav .nav-item {
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 12px 16px;
-    min-width: auto;
-    width: 100%;
-  }
-  
-  .inline-nav .nav-icon {
-    margin-bottom: 0;
-    margin-right: 12px;
-  }
-  
-  .inline-nav .nav-label {
-    font-size: 14px;
-  }
-  
-  /* Notes list mobile */
-  .notes-list {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .notes-item {
-    padding: 20px;
-  }
-}
+/* Mobile layout - consolidated with auth breakpoints above */
 
 .candi-footer__brand {
   display: flex;
