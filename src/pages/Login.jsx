@@ -39,7 +39,6 @@ const Login = () => {
       <div className="auth-form-container">
         <form onSubmit={onSubmit} className="auth-form enhanced">
           <h2>{t('signIn')}</h2>
-          <p className="form-subtitle">{t('description')}</p>
           <div className="input-group">
             <label htmlFor="email">{t('userName')}</label>
             <input id="email" type="email" value={email} onChange={onEmailChange} required />

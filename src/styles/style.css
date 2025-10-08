@@ -85,6 +85,18 @@ body {
   height: 100vh;
   overflow: hidden;
   background: linear-gradient(135deg, #0D0D0D 0%, #1a0a2e 25%, #16213e 50%, #0f3460 75%, #0D0D0D 100%);
+  animation: pageSlideIn 0.6s ease-out;
+}
+
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 [data-theme="light"] .auth-page {
@@ -244,6 +256,18 @@ main {
   text-align: center;
   position: relative;
   z-index: 1;
+  animation: welcomeSlideIn 0.8s ease-out 0.2s both;
+}
+
+@keyframes welcomeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .auth-welcome h1 {
@@ -359,6 +383,18 @@ main {
   position: relative;
   max-height: 90vh;
   overflow: visible;
+  animation: formSlideIn 0.8s ease-out 0.4s both;
+}
+
+@keyframes formSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
 }
 
 .auth-form.enhanced h2 {

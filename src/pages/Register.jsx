@@ -55,7 +55,6 @@ const Register = () => {
       <div className="auth-form-container">
         <form onSubmit={onSubmit} className="auth-form enhanced">
           <h2>{t('signUp')}</h2>
-          <p className="form-subtitle">{t('description')}</p>
           <div className="input-group">
             <label htmlFor="name">{t('fullName')}</label>
             <input id="name" type="text" value={name} onChange={onNameChange} required placeholder="John Doe" />
