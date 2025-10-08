@@ -108,6 +108,73 @@ export const NotesProvider = ({ children }) => {
     return apiGetNote(id);
   };
 
+  const editNote = async (id, { title, body }) => {
+    setLoading(true);
+    try {
+      // Update the note in the local state
+      const updatedNote = { id, title, body, updatedAt: new Date().toISOString() };
+      
+      // Update active notes
+      setActiveNotes(prev => prev.map(note => 
+        note.id === id ? { ...note, ...updatedNote } : note
+      ));
+      
+      // Update archived notes if it exists there
+      setArchivedNotes(prev => prev.map(note => 
+        note.id === id ? { ...note, ...updatedNote } : note
+      ));
+      
+      // Save to localStorage for persistence
+      const allNotes = [...activeNotes, ...archivedNotes];
+      const updatedNotes = allNotes.map(note => 
+        note.id === id ? { ...note, ...updatedNote } : note
+      );
+      localStorage.setItem('notes', JSON.stringify(updatedNotes));
+      
+      return { success: true };
+    } catch (error) {
+      console.error('Error editing note:', error);
+      return { success: false, error: error.message };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateNoteDate = async (id, newDate) => {
+    setLoading(true);
+    try {
+      const updatedNote = { 
+        id, 
+        createdAt: newDate, 
+        updatedAt: new Date().toISOString() 
+      };
+      
+      // Update active notes
+      setActiveNotes(prev => prev.map(note => 
+        note.id === id ? { ...note, ...updatedNote } : note
+      ));
+      
+      // Update archived notes if it exists there
+      setArchivedNotes(prev => prev.map(note => 
+        note.id === id ? { ...note, ...updatedNote } : note
+      ));
+      
+      // Save to localStorage for persistence
+      const allNotes = [...activeNotes, ...archivedNotes];
+      const updatedNotes = allNotes.map(note => 
+        note.id === id ? { ...note, ...updatedNote } : note
+      );
+      localStorage.setItem('notes', JSON.stringify(updatedNotes));
+      
+      return { success: true };
+    } catch (error) {
+      console.error('Error updating note date:', error);
+      return { success: false, error: error.message };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const value = useMemo(() => ({
     loading,
     error,
@@ -118,6 +185,8 @@ export const NotesProvider = ({ children }) => {
     archiveNote,
     unarchiveNote,
     getNote,
+    editNote,
+    updateNoteDate,
   }), [loading, error, activeNotes, archivedNotes]);
 
   return (

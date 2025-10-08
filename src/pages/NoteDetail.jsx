@@ -8,7 +8,7 @@ import { useLanguage } from '../context/LanguageContext';
 const NoteDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { getNote, deleteNote, archiveNote, unarchiveNote } = useNotes();
+  const { getNote, deleteNote, archiveNote, unarchiveNote, editNote, updateNoteDate } = useNotes();
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState('');
   const [editBody, setEditBody] = useState('');
@@ -44,11 +44,19 @@ const NoteDetail = () => {
     setEditBody(note.body);
   };
 
-  const handleSaveEdit = () => {
-    // Client-side update only (API does not support editing)
-    const updated = { ...note, title: editTitle, body: editBody, updatedAt: new Date().toISOString() };
-    setNote(updated);
-    setIsEditing(false);
+  const handleSaveEdit = async () => {
+    try {
+      const result = await editNote(id, { title: editTitle, body: editBody });
+      if (result.success) {
+        const updated = { ...note, title: editTitle, body: editBody, updatedAt: new Date().toISOString() };
+        setNote(updated);
+        setIsEditing(false);
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 3000);
+      }
+    } catch (error) {
+      console.error('Error saving edit:', error);
+    }
   };
 
   const handleCancelEdit = () => {
@@ -97,23 +105,31 @@ const NoteDetail = () => {
     setSelectedDate(e.target.value);
   };
 
-  const handleSaveDate = () => {
+  const handleSaveDate = async () => {
     if (selectedDate) {
       console.log('Updating date for note:', id, 'to:', selectedDate);
       setIsUpdatingDate(true);
       
-      // Client-side update only (API does not support date editing)
-      const newDate = new Date(selectedDate).toISOString();
-      const updatedNote = { ...note, createdAt: newDate, updatedAt: new Date().toISOString() };
-      setNote(updatedNote);
-      
-      setShowSuccessMessage(true);
-      setShowDatePicker(false);
-      setTimeout(() => {
-        setShowSuccessMessage(false);
+      try {
+        const newDate = new Date(selectedDate).toISOString();
+        const result = await updateNoteDate(id, newDate);
+        
+        if (result.success) {
+          const updatedNote = { ...note, createdAt: newDate, updatedAt: new Date().toISOString() };
+          setNote(updatedNote);
+          
+          setShowSuccessMessage(true);
+          setShowDatePicker(false);
+          setTimeout(() => {
+            setShowSuccessMessage(false);
+            setIsUpdatingDate(false);
+          }, 3000);
+          console.log('Date updated successfully');
+        }
+      } catch (error) {
+        console.error('Error updating date:', error);
         setIsUpdatingDate(false);
-      }, 3000);
-      console.log('Date updated successfully');
+      }
     }
   };
 
