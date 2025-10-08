@@ -2680,11 +2680,12 @@ main {
 
 .user-welcome-nav__welcome {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
   flex: 1;
   min-width: 0;
   text-align: left;
+  justify-content: flex-start;
 }
 
 .user-welcome-nav__avatar {
@@ -2705,27 +2706,29 @@ main {
 .user-welcome-nav__text {
   flex: 1;
   min-width: 0;
+  text-align: left !important;
+  display: block !important;
 }
 
 .user-welcome-nav__greeting {
   font-size: 24px;
   font-weight: 700;
   color: var(--on-surface);
-  margin-bottom: 4px;
+  margin: 0 0 2px 0 !important;
+  padding: 0 !important;
   transition: color 0.3s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: left !important;
+  display: block !important;
 }
 
 .user-welcome-nav__subtitle {
   font-size: 16px;
   color: var(--on-background-grey);
   margin: 0;
+  padding: 0;
   transition: color 0.3s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: left;
+  display: block;
 }
 
 .user-welcome-nav__navigation {
@@ -2864,7 +2867,7 @@ main {
   
   .user-welcome-nav__welcome {
     justify-content: flex-start;
-    text-align: left;
+    text-align: left !important;
   }
   
   .user-welcome-nav__navigation {
@@ -2886,10 +2889,12 @@ main {
   
   .user-welcome-nav__greeting {
     font-size: 18px;
+    text-align: left !important;
   }
   
   .user-welcome-nav__subtitle {
     font-size: 13px;
+    text-align: left !important;
   }
   
   .user-welcome-nav__avatar {
