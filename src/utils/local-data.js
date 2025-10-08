@@ -130,21 +130,6 @@ function editNote(noteData) {
   console.log('Notes saved to localStorage after edit');
 }
 
-function updateNoteDate(id) {
-  console.log('updateNoteDate called with id:', id);
-  console.log('Current notes before update:', notes);
-  
-  notes = notes.map((note) => {
-    if (note.id === id) {
-      const updatedNote = { ...note, updatedAt: new Date().toISOString() };
-      console.log('Updated note:', updatedNote);
-      return updatedNote;
-    }
-    return note;
-  });
-  
-  console.log('Notes after update:', notes);
-}
 
 export {
   getAllNotes,
@@ -156,5 +141,4 @@ export {
   archiveNote,
   unarchiveNote,
   addNote,
-  updateNoteDate,
 };

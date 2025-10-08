@@ -8,14 +8,11 @@ import { useLanguage } from '../context/LanguageContext';
 const NoteDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { getNote, deleteNote, archiveNote, unarchiveNote, editNote, updateNoteDate } = useNotes();
+  const { getNote, deleteNote, archiveNote, unarchiveNote, editNote } = useNotes();
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState('');
   const [editBody, setEditBody] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [isUpdatingDate, setIsUpdatingDate] = useState(false);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
   const { t } = useLanguage();
@@ -23,8 +20,15 @@ const NoteDetail = () => {
   useEffect(() => {
     const load = async () => {
       setLoading(true);
+      console.log('Loading note with id:', id, 'type:', typeof id);
       const res = await getNote(id);
-      if (!res.error) setNote(res.data);
+      console.log('Loaded note result:', res);
+      if (res.success && res.data) {
+        setNote(res.data);
+        console.log('Note set in state:', res.data);
+      } else {
+        console.error('Failed to load note:', res);
+      }
       setLoading(false);
     };
     load();
@@ -46,10 +50,22 @@ const NoteDetail = () => {
 
   const handleSaveEdit = async () => {
     try {
+      console.log('Saving edit for note:', id, 'title:', editTitle);
       const result = await editNote(id, { title: editTitle, body: editBody });
+      console.log('Edit result:', result);
       if (result.success) {
-        const updated = { ...note, title: editTitle, body: editBody, updatedAt: new Date().toISOString() };
-        setNote(updated);
+        // Small delay to ensure state is updated
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Reload the note from context to get updated data
+        const updatedNote = await getNote(id);
+        console.log('Reloaded note:', updatedNote);
+        if (updatedNote.success) {
+          setNote(updatedNote.data);
+          console.log('Note updated in state:', updatedNote.data);
+        } else {
+          console.error('Failed to reload note after edit:', updatedNote);
+        }
         setIsEditing(false);
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
@@ -96,47 +112,6 @@ const NoteDetail = () => {
     navigate('/archives');
   };
 
-  const handleUpdateDate = () => {
-    setShowDatePicker(true);
-    setSelectedDate(note.createdAt.split('T')[0]); // Set current date as default
-  };
-
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
-  };
-
-  const handleSaveDate = async () => {
-    if (selectedDate) {
-      console.log('Updating date for note:', id, 'to:', selectedDate);
-      setIsUpdatingDate(true);
-      
-      try {
-        const newDate = new Date(selectedDate).toISOString();
-        const result = await updateNoteDate(id, newDate);
-        
-        if (result.success) {
-          const updatedNote = { ...note, createdAt: newDate, updatedAt: new Date().toISOString() };
-          setNote(updatedNote);
-          
-          setShowSuccessMessage(true);
-          setShowDatePicker(false);
-          setTimeout(() => {
-            setShowSuccessMessage(false);
-            setIsUpdatingDate(false);
-          }, 3000);
-          console.log('Date updated successfully');
-        }
-      } catch (error) {
-        console.error('Error updating date:', error);
-        setIsUpdatingDate(false);
-      }
-    }
-  };
-
-  const handleCancelDate = () => {
-    setShowDatePicker(false);
-    setSelectedDate('');
-  };
 
   const handleBack = () => {
     navigate('/notes');
@@ -148,37 +123,7 @@ const NoteDetail = () => {
         <button onClick={handleBack} className="back-button">{t('back')}</button>
       </div>
       
-      {showSuccessMessage && (
-        <div className="success-message">
-          ✅ Tanggal berhasil diperbarui!
-        </div>
-      )}
 
-      {showDatePicker && (
-        <div className="date-picker-modal">
-          <div className="date-picker-content">
-            <h3>{t('changeDate')}</h3>
-            <div className="date-input-group">
-              <label htmlFor="date-input">{t('changeDate')}</label>
-              <input
-                id="date-input"
-                type="date"
-                value={selectedDate}
-                onChange={handleDateChange}
-                className="date-input"
-              />
-            </div>
-            <div className="date-picker-actions">
-              <button onClick={handleSaveDate} className="action" disabled={!selectedDate}>
-                {t('save')}
-              </button>
-              <button onClick={handleCancelDate} className="action action--cancel">
-                {t('cancel')}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
       
       {isEditing ? (
         <div className="edit-form">
@@ -225,16 +170,6 @@ const NoteDetail = () => {
             <button onClick={handleEdit} className="action" title={t('edit')} aria-label={t('edit')}>
               <i className="fa-solid fa-pen"></i>
               <span className="action-text">{t('edit')}</span>
-            </button>
-            <button 
-              onClick={handleUpdateDate} 
-              className="action"
-              disabled={isUpdatingDate}
-              title={t('changeDate')}
-              aria-label={t('changeDate')}
-            >
-              <i className="fa-regular fa-calendar"></i>
-              <span className="action-text">{t('changeDate')}</span>
             </button>
             <button onClick={handleDelete} className="action action--delete" title={t('delete')} aria-label={t('delete')}>
               <i className="fa-solid fa-trash"></i>

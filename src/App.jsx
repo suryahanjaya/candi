@@ -17,7 +17,8 @@ import LanguageToggle from './components/LanguageToggle';
 
 const Protected = ({ children }) => {
   const { isAuthenticated, initializing } = useAuth();
-  if (initializing) return <div className="loading">Memuat...</div>;
+  const { t } = useLanguage();
+  if (initializing) return <div className="loading">{t('loading')}</div>;
   if (!isAuthenticated) return <Login />;
   return children;
 };

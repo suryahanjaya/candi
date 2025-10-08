@@ -128,7 +128,7 @@ const Register = () => {
           {authError && <p className="form-error">{authError}</p>}
           <div className="form-actions">
             <button type="submit" className="action" disabled={authLoading || passwordMismatch}>
-              {authLoading ? 'Creating account...' : t('signUpButton')}
+              {authLoading ? t('loading') : t('signUpButton')}
             </button>
             <Link to="/login" className="action action--link">{t('alreadyHaveAccount')}</Link>
           </div>

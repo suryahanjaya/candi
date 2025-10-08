@@ -76,7 +76,7 @@ const Login = () => {
           {authError && <p className="form-error">{authError}</p>}
           <div className="form-actions">
             <button type="submit" className="action" disabled={authLoading}>
-              {authLoading ? 'Signing in...' : t('signInButton')}
+              {authLoading ? t('loading') : t('signInButton')}
             </button>
             <Link to="/register" className="action action--link">{t('dontHaveAccount')}</Link>
           </div>

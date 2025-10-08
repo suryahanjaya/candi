@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { getAccessToken, putAccessToken, login as apiLogin, register as apiRegister, getUserLogged } from '../utils/network-data';
+import { getAccessToken, putAccessToken, login as apiLogin, register as apiRegister, getUserLogged, addNote as apiAddNote } from '../utils/network-data';
+import { useLanguage } from './LanguageContext';
 
 const AuthContext = createContext();
 
@@ -10,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [initializing, setInitializing] = useState(true);
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState('');
+  const { t } = useLanguage();
 
   useEffect(() => {
     const bootstrap = async () => {
@@ -39,13 +41,13 @@ export const AuthProvider = ({ children }) => {
       // Check if email is in deleted emails list
       const deletedEmails = JSON.parse(localStorage.getItem('deletedEmails') || '[]');
       if (deletedEmails.includes(email)) {
-        setAuthError('Akun dengan email ini telah dihapus. Silakan daftar ulang.');
+        setAuthError(t('accountNotFound'));
         return false;
       }
 
       const { error, data } = await apiLogin({ email, password });
       if (error || !data?.accessToken) {
-        setAuthError('Login gagal');
+        setAuthError(t('accountNotFound'));
         return false;
       }
       putAccessToken(data.accessToken);
@@ -54,10 +56,10 @@ export const AuthProvider = ({ children }) => {
         setUser(me.data);
         return true;
       }
-      setAuthError('Gagal mengambil data pengguna');
+      setAuthError(t('failedGetUserData'));
       return false;
     } catch (e) {
-      setAuthError('Terjadi kesalahan jaringan');
+      setAuthError(t('networkError'));
       return false;
     } finally {
       setAuthLoading(false);
@@ -68,19 +70,29 @@ export const AuthProvider = ({ children }) => {
     setAuthLoading(true);
     setAuthError('');
     try {
-      // Remove email from deleted emails list if user re-registers
+      // Check if email is in deleted emails list first
       const deletedEmails = JSON.parse(localStorage.getItem('deletedEmails') || '[]');
-      const updatedDeletedEmails = deletedEmails.filter(deletedEmail => deletedEmail !== email);
-      localStorage.setItem('deletedEmails', JSON.stringify(updatedDeletedEmails));
+      if (deletedEmails.includes(email)) {
+        // Use special re-registration handler for deleted emails
+        return await handleReRegistration({ name, email, password });
+      }
 
       const { error } = await apiRegister({ name, email, password });
       if (error) {
-        setAuthError('Registrasi gagal');
+        // Check if it's an email already exists error
+        if (error.message && error.message.includes('email')) {
+          setAuthError(t('emailAlreadyUsed'));
+        } else {
+          setAuthError(t('registrationFailed'));
+        }
         return false;
       }
+      
+      // Create welcome note for new users
+      await createFreshDatabase();
       return true;
     } catch (e) {
-      setAuthError('Terjadi kesalahan jaringan');
+      setAuthError(t('networkError'));
       return false;
     } finally {
       setAuthLoading(false);
@@ -110,6 +122,89 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  // Function to handle re-registration of deleted emails
+  const handleReRegistration = async ({ name, email, password }) => {
+    setAuthLoading(true);
+    setAuthError('');
+    try {
+      // Remove email from deleted emails list
+      const deletedEmails = JSON.parse(localStorage.getItem('deletedEmails') || '[]');
+      const updatedDeletedEmails = deletedEmails.filter(deletedEmail => deletedEmail !== email);
+      localStorage.setItem('deletedEmails', JSON.stringify(updatedDeletedEmails));
+      
+      // Clear all existing data to ensure fresh start
+      localStorage.removeItem('notes');
+      localStorage.removeItem('theme');
+      localStorage.removeItem('language');
+      localStorage.removeItem('user');
+      
+      // Try to login with existing credentials (since backend still has the account)
+      const loginResult = await apiLogin({ email, password });
+      if (!loginResult.error && loginResult.data?.accessToken) {
+        putAccessToken(loginResult.data.accessToken);
+        const me = await getUserLogged();
+        if (!me.error) {
+          setUser(me.data);
+          
+          // Create fresh database with greeting note
+          await createFreshDatabase();
+          return true;
+        }
+      }
+      
+      // If login fails, try registration
+      const { error } = await apiRegister({ name, email, password });
+      if (error) {
+        setAuthError(t('registrationFailed'));
+        return false;
+      }
+      
+      // Create fresh database with greeting note for new registration
+      await createFreshDatabase();
+      return true;
+    } catch (e) {
+      setAuthError(t('networkError'));
+      return false;
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  // Function to create fresh database with greeting note
+  const createFreshDatabase = async () => {
+    try {
+      // Clear existing notes first to ensure fresh start
+      localStorage.removeItem('notes');
+      
+      // Create a welcome note
+      const welcomeNote = {
+        title: t('welcomeNoteTitle'),
+        body: t('welcomeNoteBody'),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        archived: false
+      };
+      
+      // Add the welcome note to localStorage
+      const newNote = {
+        id: Date.now().toString(),
+        ...welcomeNote
+      };
+      
+      localStorage.setItem('notes', JSON.stringify([newNote]));
+      
+      // Also try to add to backend if possible
+      try {
+        await apiAddNote({ title: welcomeNote.title, body: welcomeNote.body });
+      } catch (e) {
+        // If backend fails, that's okay - we have it in localStorage
+        console.log('Welcome note saved locally only');
+      }
+    } catch (e) {
+      console.log('Error creating fresh database:', e);
+    }
+  };
+
   const value = useMemo(() => ({
     user,
     initializing,
@@ -119,6 +214,7 @@ export const AuthProvider = ({ children }) => {
     register: handleRegister,
     logout,
     deleteAccount,
+    handleReRegistration,
     isAuthenticated: Boolean(user),
   }), [user, initializing, authLoading, authError]);
 
