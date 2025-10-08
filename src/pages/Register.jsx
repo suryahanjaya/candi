@@ -29,34 +29,48 @@ const Register = () => {
 
   return (
     <div className="auth-page">
-      <h2>{t('register')}</h2>
-      <form onSubmit={onSubmit} className="auth-form enhanced">
-        <div className="input-group">
-          <label htmlFor="name">{t('name')}</label>
-          <input id="name" type="text" value={name} onChange={onNameChange} required placeholder="John Doe" />
-        </div>
-        <div className="input-group">
-          <label htmlFor="email">{t('email')}</label>
-          <input id="email" type="email" value={email} onChange={onEmailChange} required placeholder="john@example.com" />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">{t('password')}</label>
-          <input id="password" type="password" value={password} onChange={onPasswordChange} required minLength={6} placeholder="••••••" />
-          <small className="hint">{t('password')} min 6 karakter</small>
-        </div>
-        <div className="input-group">
-          <label htmlFor="confirm">{t('confirmPassword')}</label>
-          <input id="confirm" type="password" value={confirm} onChange={onConfirmChange} required placeholder="••••••" />
-          {passwordMismatch && <small className="error">Password tidak sama</small>}
-        </div>
-        {authError && <p className="form-error">{authError}</p>}
-        <div className="form-actions">
-          <button type="submit" className="action" disabled={authLoading || passwordMismatch}>
-            {authLoading ? 'Mendaftar...' : t('register')}
-          </button>
-          <Link to="/login" className="action action--link">{t('login')}</Link>
-        </div>
-      </form>
+      <div className="auth-welcome">
+        <h1>WELCOME</h1>
+        <h2>YOUR HEADLINE NAME</h2>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+      </div>
+      <div className="auth-form-container">
+        <form onSubmit={onSubmit} className="auth-form enhanced">
+          <h2>Sign up</h2>
+          <p className="form-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+          <div className="input-group">
+            <label htmlFor="name">Full name</label>
+            <input id="name" type="text" value={name} onChange={onNameChange} required placeholder="John Doe" />
+          </div>
+          <div className="input-group">
+            <label htmlFor="email">Email</label>
+            <input id="email" type="email" value={email} onChange={onEmailChange} required placeholder="john@example.com" />
+          </div>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <div className="password-container">
+              <input id="password" type="password" value={password} onChange={onPasswordChange} required minLength={6} placeholder="••••••" />
+              <button type="button" className="show-password">SHOW</button>
+            </div>
+            <small className="hint">Password min 6 characters</small>
+          </div>
+          <div className="input-group">
+            <label htmlFor="confirm">Confirm Password</label>
+            <div className="password-container">
+              <input id="confirm" type="password" value={confirm} onChange={onConfirmChange} required placeholder="••••••" />
+              <button type="button" className="show-password">SHOW</button>
+            </div>
+            {passwordMismatch && <small className="error">Passwords don't match</small>}
+          </div>
+          {authError && <p className="form-error">{authError}</p>}
+          <div className="form-actions">
+            <button type="submit" className="action" disabled={authLoading || passwordMismatch}>
+              {authLoading ? 'Creating account...' : 'Sign up'}
+            </button>
+            <Link to="/login" className="action action--link">Already have an account? Sign in</Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

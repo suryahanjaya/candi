@@ -24,24 +24,42 @@ const Login = () => {
 
   return (
     <div className="auth-page">
-      <h2>{t('login')}</h2>
-      <form onSubmit={onSubmit} className="auth-form enhanced">
-        <div className="input-group">
-          <label htmlFor="email">{t('email')}</label>
-          <input id="email" type="email" value={email} onChange={onEmailChange} required />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">{t('password')}</label>
-          <input id="password" type="password" value={password} onChange={onPasswordChange} required />
-        </div>
-        {authError && <p className="form-error">{authError}</p>}
-        <div className="form-actions">
-          <button type="submit" className="action" disabled={authLoading}>
-            {authLoading ? '...' : t('login')}
-          </button>
-          <Link to="/register" className="action action--link">{t('register')}</Link>
-        </div>
-      </form>
+      <div className="auth-welcome">
+        <h1>WELCOME</h1>
+        <h2>YOUR HEADLINE NAME</h2>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+      </div>
+      <div className="auth-form-container">
+        <form onSubmit={onSubmit} className="auth-form enhanced">
+          <h2>Sign in</h2>
+          <p className="form-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+          <div className="input-group">
+            <label htmlFor="email">User name</label>
+            <input id="email" type="email" value={email} onChange={onEmailChange} required />
+          </div>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <div className="password-container">
+              <input id="password" type="password" value={password} onChange={onPasswordChange} required />
+              <button type="button" className="show-password">SHOW</button>
+            </div>
+          </div>
+          <div className="form-options">
+            <div className="remember-me">
+              <input type="checkbox" id="remember" />
+              <label htmlFor="remember">Remember me</label>
+            </div>
+            <a href="#" className="forgot-password">Forgot Password?</a>
+          </div>
+          {authError && <p className="form-error">{authError}</p>}
+          <div className="form-actions">
+            <button type="submit" className="action" disabled={authLoading}>
+              {authLoading ? 'Signing in...' : 'Sign in'}
+            </button>
+            <Link to="/register" className="action action--link">Don't have an account? Sign up</Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
