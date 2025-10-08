@@ -223,7 +223,7 @@ header .navigation ul li {
 
 main {
   margin: 0 auto;
-  padding: 80px 0 100px 0;
+  padding: 60px 0 20px 0;
   width: 95%;
   max-width: 1400px;
   position: relative;
@@ -1589,11 +1589,18 @@ main {
 
 /* CANDI Footer */
 .candi-footer {
-  background: var(--gradient-primary);
-  padding: 6px 0;
-  margin-bottom: 8px;
-  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 4px 0;
+  margin: 0 20px 4px 20px;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .candi-footer::before {
@@ -1612,13 +1619,13 @@ main {
 .candi-footer__content {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 12px;
   position: relative;
   z-index: 1;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 }
 
 /* Mobile layout - consolidated with auth breakpoints above */
@@ -1630,31 +1637,34 @@ main {
 }
 
 .candi-footer__social a {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--on-background);
   transition: all 0.3s ease;
   padding: 4px;
   border-radius: 4px;
+  opacity: 0.8;
 }
 
 .candi-footer__social a:hover {
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
+  color: var(--primary);
+  background: rgba(106, 0, 255, 0.1);
   transform: translateY(-2px);
+  opacity: 1;
 }
 
 .candi-footer__center {
   text-align: center;
-  color: white;
+  color: var(--on-background);
 }
 
 .candi-footer__center h4 {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
-  margin: 0 0 2px 0;
+  margin: 0 0 1px 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .candi-footer__center p {
-  font-size: 11px;
+  font-size: 9px;
   margin: 0;
   opacity: 0.8;
 }
@@ -1667,34 +1677,31 @@ main {
 }
 
 .candi-footer__logo {
-  width: 32px;
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 700;
-  color: #FFFFFF;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .candi-footer__text h3 {
-  color: #FFFFFF;
-  font-size: 16px;
+  color: var(--on-background);
+  font-size: 12px;
   font-weight: 700;
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .candi-footer__text p {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 10px;
-  margin: 2px 0 0 0;
+  color: var(--on-background-grey);
+  font-size: 8px;
+  margin: 1px 0 0 0;
   font-weight: 500;
 }
 
