@@ -45,8 +45,19 @@ const Register = () => {
         <div className="welcome-graphics">
           <div className="graphic-circle circle-1"></div>
           <div className="graphic-circle circle-2"></div>
+          <div className="graphic-circle circle-3"></div>
+          <div className="graphic-circle circle-4"></div>
+          <div className="graphic-circle circle-5"></div>
+          <div className="graphic-circle circle-6"></div>
+          <div className="graphic-circle circle-7"></div>
           <div className="graphic-triangle"></div>
+          <div className="graphic-triangle-2"></div>
+          <div className="graphic-triangle-3"></div>
+          <div className="graphic-triangle-4"></div>
           <div className="graphic-square"></div>
+          <div className="graphic-square-2"></div>
+          <div className="graphic-square-3"></div>
+          <div className="graphic-square-4"></div>
         </div>
         <h1>{t('welcome')}</h1>
         <h2>{t('headline')}</h2>
