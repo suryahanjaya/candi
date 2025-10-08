@@ -49,7 +49,7 @@ function App() {
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
-            <div className="candi-footer">
+            <footer className="candi-footer">
               <div className="candi-footer__content">
                 <div className="candi-footer__brand">
                   <div className="candi-footer__logo">C</div>
@@ -80,7 +80,7 @@ function App() {
                   </a>
                 </div>
               </div>
-            </div>
+            </footer>
             <FloatingActionButton />
           </div>
             </Router>

@@ -64,7 +64,6 @@ body {
 
 .app-container {
   color: var(--on-background);
-  background: linear-gradient(135deg, #0D0D0D 0%, #1a0a2e 25%, #16213e 50%, #0f3460 75%, #0D0D0D 100%);
   min-height: 100vh;
   transition: all ease-in-out 0.3s;
   position: relative;
@@ -722,19 +721,30 @@ main {
 @media (max-width: 768px) {
   .auth-form.enhanced {
     max-width: 100%;
-    padding: 24px 20px;
-    margin: 0 16px;
+    padding: 20px 16px;
+    margin: 0 12px;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
+    max-height: 85vh;
+    overflow-y: auto;
   }
   
   .auth-form.enhanced .form-actions {
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 16px;
   }
   
   .auth-form.enhanced .form-actions .action {
-    width: 100%;
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  
+  .auth-form.enhanced .form-actions .action--link {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    font-size: 11px;
   }
   
   .welcome-graphics {
@@ -758,29 +768,44 @@ main {
 @media (max-width: 768px) {
   .auth-page {
     flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
   }
   
   .auth-welcome {
-    padding: 40px 20px;
+    padding: 20px 16px;
     flex: none;
+    min-height: 30vh;
   }
   
   .auth-welcome h1 {
-    font-size: 32px;
+    font-size: 24px;
+    margin-bottom: 8px;
   }
   
   .auth-welcome h2 {
-    font-size: 18px;
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .auth-welcome p {
+    font-size: 12px;
+    max-width: 280px;
   }
   
   .auth-form-container {
-    padding: 20px 16px 40px 16px;
+    padding: 16px 12px 20px 12px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .auth-form.enhanced {
     max-width: 100%;
-    padding: 28px 20px;
-    max-height: 80vh;
+    padding: 20px 16px;
+    max-height: 65vh;
+    overflow-y: auto;
   }
   
   /* Header adjustments */
@@ -800,12 +825,20 @@ main {
   }
   
   /* Footer */
+  .candi-footer {
+    margin: 20px auto 4px auto;
+    max-width: calc(100% - 32px);
+    width: calc(100% - 32px);
+    transform: scale(1);
+  }
+  
   .candi-footer__content {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    gap: 24px;
-    padding: 0 16px;
+    gap: 16px;
+    padding: 0 12px;
+    min-height: auto;
   }
   
   .candi-footer__brand {
@@ -1704,19 +1737,21 @@ main {
 
 /* CANDI Footer */
 .candi-footer {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 6px 0;
-  margin: 20px 40px 4px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  padding: 3px 0;
+  margin: 20px auto 4px auto;
+  max-width: 800px;
+  width: calc(100% - 40px);
   position: sticky;
   bottom: 0;
   z-index: 100;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transform: scale(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
   transform-origin: center;
 }
 
@@ -1734,23 +1769,49 @@ main {
 }
 
 .candi-footer__content {
-  max-width: 1000px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 0 6px;
+  padding: 0 4px;
   position: relative;
   z-index: 1;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
+  min-height: 32px;
+}
+
+/* Responsive Footer Centering */
+@media (max-width: 1200px) {
+  .candi-footer {
+    max-width: 90%;
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 768px) {
+  .candi-footer {
+    max-width: calc(100% - 32px);
+    width: calc(100% - 32px);
+    margin: 20px auto 4px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .candi-footer {
+    max-width: calc(100% - 24px);
+    width: calc(100% - 24px);
+    margin: 16px auto 4px auto;
+  }
 }
 
 /* Mobile layout - consolidated with auth breakpoints above */
 
 .candi-footer__social {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .candi-footer__social a {
@@ -1759,6 +1820,11 @@ main {
   padding: 4px;
   border-radius: 4px;
   opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 28px;
 }
 
 .candi-footer__social a:hover {
@@ -1774,14 +1840,14 @@ main {
 }
 
 .candi-footer__center h4 {
-    font-size: 10px;
+    font-size: 9px;
   font-weight: 600;
   margin: 0 0 1px 0;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .candi-footer__center p {
-  font-size: 7px;
+  font-size: 6px;
   margin: 0;
   opacity: 0.8;
 }
@@ -1809,7 +1875,7 @@ main {
 
 .candi-footer__text h3 {
   color: var(--on-background);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   margin: 0;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -1817,7 +1883,7 @@ main {
 
 .candi-footer__text p {
   color: var(--on-background-grey);
-  font-size: 6px;
+  font-size: 5px;
   margin: 1px 0 0 0;
   font-weight: 500;
 }
@@ -1829,16 +1895,16 @@ main {
 
 .developer-info h4 {
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
-  margin: 0 0 2px 0;
+  margin: 0 0 1px 0;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .developer-info p {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 9px;
-  margin: 0 0 8px 0;
+  font-size: 7px;
+  margin: 0 0 6px 0;
   font-weight: 400;
 }
 
