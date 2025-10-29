@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { formatDate } from '../utils/formatDate';
 import parser from 'html-react-parser';
 import { useNotes } from '../context/NotesContext';
@@ -9,7 +9,11 @@ const NoteItem = ({ note }) => {
   const { id, title, body, createdAt, archived } = note;
   const { unarchiveNote, deleteNote } = useNotes();
   const { t } = useLanguage();
+  const location = useLocation();
   const truncatedBody = body.length > 100 ? `${body.substring(0, 100)}...` : body;
+  
+  // Check if we're on archive page
+  const isArchivePage = location.pathname === '/archives';
 
   const handleUnarchive = async (e) => {
     e.preventDefault();
@@ -38,7 +42,11 @@ const NoteItem = ({ note }) => {
   return (
     <div className="notes-item">
       <div className="notes-item__content">
-        <Link to={`/notes/${id}`} className="notes-item__title">
+        <Link 
+          to={`/notes/${id}`} 
+          state={{ fromArchive: isArchivePage }}
+          className="notes-item__title"
+        >
           {title}
         </Link>
         <p className="notes-item__date">{formatDate(createdAt)}</p>

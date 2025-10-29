@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useNotes } from '../context/NotesContext';
 import { formatDate } from '../utils/formatDate';
 import parser from 'html-react-parser';
@@ -8,6 +8,7 @@ import { useLanguage } from '../context/LanguageContext';
 const NoteDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { getNote, deleteNote, archiveNote, unarchiveNote, editNote } = useNotes();
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState('');
@@ -16,6 +17,9 @@ const NoteDetail = () => {
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
   const { t } = useLanguage();
+  
+  // Check if coming from archive page
+  const isFromArchive = location.state?.fromArchive || false;
 
   useEffect(() => {
     const load = async () => {
@@ -175,12 +179,13 @@ const NoteDetail = () => {
               <i className="fa-solid fa-trash"></i>
               <span className="action-text">{t('delete')}</span>
             </button>
-            {note.archived ? (
+            {!isFromArchive && note.archived && (
               <button onClick={handleUnarchive} className="action" title={t('unarchive')} aria-label={t('unarchive')}>
                 <i className="fa-solid fa-box-open"></i>
                 <span className="action-text">{t('unarchive')}</span>
               </button>
-            ) : (
+            )}
+            {!isFromArchive && !note.archived && (
               <button onClick={handleArchive} className="action" title={t('archiveAction')} aria-label={t('archiveAction')}>
                 <i className="fa-solid fa-box-archive"></i>
                 <span className="action-text">{t('archiveAction')}</span>
