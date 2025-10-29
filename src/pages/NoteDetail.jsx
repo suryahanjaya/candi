@@ -102,7 +102,11 @@ const NoteDetail = () => {
     if (result.isConfirmed) {
       await deleteNote(id);
       await window.Swal.fire(t('deleted'), t('noteDeleted'), 'success');
-      navigate('/notes');
+      if (isFromArchive) {
+        navigate('/archives');
+      } else {
+        navigate('/notes');
+      }
     }
   };
 
@@ -118,7 +122,11 @@ const NoteDetail = () => {
 
 
   const handleBack = () => {
-    navigate('/notes');
+    if (isFromArchive) {
+      navigate('/archives');
+    } else {
+      navigate('/notes');
+    }
   };
 
   return (
