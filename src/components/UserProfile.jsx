@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -6,12 +7,41 @@ const UserProfile = () => {
   const { user, logout, deleteAccount } = useAuth();
   const { t } = useLanguage();
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
 
   if (!user) return null;
 
-  const handleDeleteAccount = () => {
-    if (window.confirm(t('deleteAccountConfirm'))) {
+  const handleDeleteAccount = async () => {
+    const result = await window.Swal.fire({
+      title: t('deleteAccount'),
+      html: `
+        <div style="text-align:left">
+          <p>${t('deleteAccountConfirm')}</p>
+          <label style="display:flex;align-items:center;gap:8px;margin-top:12px;">
+            <input type="checkbox" id="confirmDeleteAllData" />
+            <span>Saya setuju menghapus semua data akun ini</span>
+          </label>
+        </div>
+      `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Hapus Permanen',
+      cancelButtonText: t('cancel'),
+      focusConfirm: false,
+      preConfirm: () => {
+        const cb = document.getElementById('confirmDeleteAllData');
+        if (!cb || !cb.checked) {
+          window.Swal.showValidationMessage('Centang persetujuan untuk melanjutkan');
+          return false;
+        }
+        return true;
+      },
+      reverseButtons: true,
+    });
+    if (result.isConfirmed) {
       deleteAccount();
+      await window.Swal.fire('Dihapus', 'Akun dan semua data telah dihapus.', 'success');
+      navigate('/login');
     }
   };
 

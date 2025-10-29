@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useInput from '../hooks/useInput';
 import { useAuth } from '../context/AuthContext';
@@ -18,10 +18,11 @@ const Login = () => {
     if (ok) navigate('/notes');
   };
 
-  if (isAuthenticated) {
-    navigate('/notes');
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/notes', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="auth-page">

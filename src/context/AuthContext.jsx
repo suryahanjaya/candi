@@ -88,8 +88,25 @@ export const AuthProvider = ({ children }) => {
         return false;
       }
       
-      // Create welcome note for new users
-      await createFreshDatabase();
+      // Auto-login after successful register
+      const loginResult = await apiLogin({ email, password });
+      if (!loginResult.error && loginResult.data?.accessToken) {
+        putAccessToken(loginResult.data.accessToken);
+        const me = await getUserLogged();
+        if (!me.error) {
+          setUser(me.data);
+          // Mark this user as fresh to skip backend sync on first load
+          if (me.data?.email) {
+            localStorage.setItem(`freshUser:${me.data.email}`, '1');
+            // Also block backend sync for this user to prevent old data from returning
+            localStorage.setItem(`blockBackendSync:${me.data.email}`, '1');
+          }
+          // Create welcome note fresh DB for this user
+          await createFreshDatabase();
+          return true;
+        }
+      }
+      // Fallback: stay on login if auto-login fails
       return true;
     } catch (e) {
       setAuthError(t('networkError'));
@@ -107,16 +124,30 @@ export const AuthProvider = ({ children }) => {
   const deleteAccount = () => {
     // Clear all user data from localStorage
     localStorage.removeItem('accessToken');
-    localStorage.removeItem('notes');
+    // Remove namespaced notes keys
+    try {
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+        if (key && (key === 'notes' || key.startsWith('notes:'))) {
+          localStorage.removeItem(key);
+        }
+      }
+    } catch (_) {}
     localStorage.removeItem('theme');
     localStorage.removeItem('language');
     localStorage.removeItem('user');
+    // Remove freshUser flag for this email
+    if (user?.email) {
+      localStorage.removeItem(`freshUser:${user.email}`);
+    }
     
     // Add deleted email to prevent re-login
     const deletedEmails = JSON.parse(localStorage.getItem('deletedEmails') || '[]');
     if (user?.email && !deletedEmails.includes(user.email)) {
       deletedEmails.push(user.email);
       localStorage.setItem('deletedEmails', JSON.stringify(deletedEmails));
+      // Block backend sync permanently for this email unless user opts in
+      localStorage.setItem(`blockBackendSync:${user.email}`, '1');
     }
     
     setUser(null);
@@ -174,7 +205,13 @@ export const AuthProvider = ({ children }) => {
   const createFreshDatabase = async () => {
     try {
       // Clear existing notes first to ensure fresh start
-      localStorage.removeItem('notes');
+      // Clear namespaced notes for this user
+      if (user?.email) {
+        localStorage.removeItem(`notes:${user.email}`);
+        localStorage.setItem(`freshUser:${user.email}`, '1');
+      } else {
+        localStorage.removeItem('notes');
+      }
       
       // Create a welcome note
       const welcomeNote = {
@@ -191,7 +228,11 @@ export const AuthProvider = ({ children }) => {
         ...welcomeNote
       };
       
-      localStorage.setItem('notes', JSON.stringify([newNote]));
+      if (user?.email) {
+        localStorage.setItem(`notes:${user.email}`, JSON.stringify([newNote]));
+      } else {
+        localStorage.setItem('notes', JSON.stringify([newNote]));
+      }
       
       // Also try to add to backend if possible
       try {

@@ -11,7 +11,7 @@ const AddNote = () => {
   const { t } = useLanguage();
 
   const handleSave = () => {
-    const bodyText = bodyRef.current ? bodyRef.current.textContent : '';
+    const bodyText = bodyRef.current ? bodyRef.current.innerHTML : '';
     if (title.trim() || bodyText.trim()) {
       addNote({ title, body: bodyText });
       navigate('/notes');

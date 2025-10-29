@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useNotes } from '../context/NotesContext';
 import { formatDate } from '../utils/formatDate';
@@ -17,6 +17,7 @@ const NoteDetail = () => {
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
   const { t } = useLanguage();
+  const bodyEditRef = useRef(null);
   
   // Check if coming from archive page
   const isFromArchive = location.state?.fromArchive || false;
@@ -38,6 +39,13 @@ const NoteDetail = () => {
     load();
   }, [id]);
 
+  // Ensure this hook is declared before any conditional returns
+  useEffect(() => {
+    if (isEditing && bodyEditRef.current) {
+      bodyEditRef.current.innerHTML = editBody;
+    }
+  }, [isEditing, editBody]);
+
   if (loading) {
     return <p className="loading">{t('loading')}</p>;
   }
@@ -52,27 +60,25 @@ const NoteDetail = () => {
     setEditBody(note.body);
   };
 
+
   const handleSaveEdit = async () => {
     try {
-      console.log('Saving edit for note:', id, 'title:', editTitle);
+      console.log('Saving edit for note:', id, 'title:', editTitle, 'body:', editBody);
       const result = await editNote(id, { title: editTitle, body: editBody });
       console.log('Edit result:', result);
       if (result.success) {
-        // Small delay to ensure state is updated
-        await new Promise(resolve => setTimeout(resolve, 100));
-        
-        // Reload the note from context to get updated data
-        const updatedNote = await getNote(id);
-        console.log('Reloaded note:', updatedNote);
-        if (updatedNote.success) {
-          setNote(updatedNote.data);
-          console.log('Note updated in state:', updatedNote.data);
-        } else {
-          console.error('Failed to reload note after edit:', updatedNote);
-        }
+        // Optimistic local update to reflect immediately without reload
+        setNote(prev => prev ? {
+          ...prev,
+          title: editTitle,
+          body: editBody,
+          updatedAt: new Date().toISOString(),
+        } : prev);
         setIsEditing(false);
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
+      } else {
+        console.error('Edit failed:', result);
       }
     } catch (error) {
       console.error('Error saving edit:', error);
@@ -86,7 +92,7 @@ const NoteDetail = () => {
   };
 
   const handleBodyChange = (e) => {
-    setEditBody(e.target.textContent);
+    setEditBody(e.currentTarget.innerHTML);
   };
 
   const handleDelete = async () => {
@@ -115,9 +121,13 @@ const NoteDetail = () => {
     navigate('/notes');
   };
 
-  const handleUnarchive = () => {
-    unarchiveNote(id);
-    navigate('/archives');
+  const handleUnarchive = async () => {
+    await unarchiveNote(id);
+    if (isFromArchive) {
+      navigate('/archives');
+    } else {
+      navigate('/notes');
+    }
   };
 
 
@@ -135,7 +145,11 @@ const NoteDetail = () => {
         <button onClick={handleBack} className="back-button">{t('back')}</button>
       </div>
       
-
+      {showSuccessMessage && (
+        <div className="success-message">
+          ✓ {t('noteUpdated') || 'Note berhasil diperbarui!'}
+        </div>
+      )}
       
       {isEditing ? (
         <div className="edit-form">
@@ -153,13 +167,13 @@ const NoteDetail = () => {
             <label htmlFor="edit-body">{t('body')}</label>
             <div
               id="edit-body"
+              ref={bodyEditRef}
               className="content-editable"
-              contentEditable
+              contentEditable="true"
+              suppressContentEditableWarning={true}
               data-placeholder={t('writeNoteHere')}
               onInput={handleBodyChange}
-            >
-              {editBody}
-            </div>
+            />
           </div>
           <div className="edit-actions">
             <button onClick={handleSaveEdit} className="action">{t('save')}</button>

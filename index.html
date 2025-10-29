@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <!-- Removed broken vite.svg icon to avoid 404 in dev -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- START: Google Font -->
@@ -12,7 +12,8 @@
   <!-- END: Google Font -->
 
   <title>CANDI</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfM9z9Z2Z6VQPsS0mGgYd1GIC5vDT1xZC4Z1S9Z5xFQ2VQF4J5d9z1xA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Remove integrity to avoid SRI mismatch in dev; keep crossorigin off -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>

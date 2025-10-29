@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useInput from '../hooks/useInput';
 import { useAuth } from '../context/AuthContext';
@@ -31,13 +31,14 @@ const Register = () => {
     e.preventDefault();
     if (password !== confirm) return;
     const ok = await register({ name, email, password });
-    if (ok) navigate('/login');
+    if (ok) navigate('/notes');
   };
 
-  if (isAuthenticated) {
-    navigate('/notes');
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/notes', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="auth-page">
