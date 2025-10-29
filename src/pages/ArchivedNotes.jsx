@@ -26,28 +26,28 @@ const ArchivedNotes = () => {
       <UserWelcomeNav />
       <h2>{t('archive')}</h2>
       <SearchBar keyword={searchKeyword} onKeywordChange={setSearchKeyword} />
-      <div className="notes-list">
-        {loading ? (
-          <p className="loading">{t('loading')}</p>
-        ) : archivedNotes.length > 0 ? (
-          archivedNotes.map(note => (
+      {loading ? (
+        <p className="loading">{t('loading')}</p>
+      ) : archivedNotes.length > 0 ? (
+        <div className="notes-list">
+          {archivedNotes.map(note => (
             <NoteItem key={note.id} note={note} />
-          ))
-        ) : (
-          <div className="empty-state">
-            <div className="empty-state__icon">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="21,8 21,21 3,21 3,8"/>
-                <rect x="1" y="3" width="22" height="5"/>
-                <line x1="10" y1="12" x2="14" y2="12"/>
-              </svg>
-            </div>
-            <h3 className="empty-state__title">{t('archivedEmptyTitle')}</h3>
-            <p className="empty-state__description">{t('archivedEmptyDesc')}</p>
+          ))}
+        </div>
+      ) : (
+        <div className="empty-state">
+          <div className="empty-state__icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="21,8 21,21 3,21 3,8"/>
+              <rect x="1" y="3" width="22" height="5"/>
+              <line x1="10" y1="12" x2="14" y2="12"/>
+            </svg>
           </div>
-        )}
-      </div>
-      <Link to="/notes" className="action">{t('home')}</Link>
+          <h3 className="empty-state__title">{t('archivedEmptyTitle')}</h3>
+          <p className="empty-state__description">{t('archivedEmptyDesc')}</p>
+        </div>
+      )}
+      {archivedNotes.length > 0 && <Link to="/notes" className="action" style={{marginTop: '20px'}}>{t('home')}</Link>}
     </div>
   );
 };

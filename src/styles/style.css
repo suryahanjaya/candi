@@ -1418,6 +1418,50 @@ main {
   margin-left: auto;
 }
 
+.notes-item__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-border);
+}
+
+.notes-item__action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--gradient-primary);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  justify-content: center;
+}
+
+.notes-item__action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(106, 0, 255, 0.3);
+}
+
+.notes-item__action--delete {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
+}
+
+.notes-item__action--delete:hover {
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.notes-item__action svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
 .note-detail-page {
   margin: 0 auto;
   margin-top: 32px;
@@ -1926,6 +1970,27 @@ main {
 [data-theme="light"] .notes-item:hover::before {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+[data-theme="light"] .notes-item__actions {
+  border-top: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="light"] .notes-item__action {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+[data-theme="light"] .notes-item__action:hover {
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="light"] .notes-item__action--delete {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
+}
+
+[data-theme="light"] .notes-item__action--delete:hover {
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
 }
 
 [data-theme="light"] .content-editable {
@@ -2927,6 +2992,16 @@ main {
   
   .notes-item__body {
     font-size: 14px;
+  }
+  
+  .notes-item__actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .notes-item__action {
+    width: 100%;
+    padding: 10px 12px;
   }
   
   .user-profile {
