@@ -1286,21 +1286,11 @@ main {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 64px 32px;
+  padding: 80px 32px;
   margin: 0 auto;
   max-width: 500px;
   width: 100%;
-  min-height: 70vh;
-  position: relative;
-}
-
-.archived-notes-page .empty-state {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-height: auto;
-  padding: 32px;
+  min-height: 50vh;
 }
 
 .empty-state__icon {
@@ -2058,6 +2048,26 @@ main {
   text-shadow: none;
 }
 
+/* Light mode user-welcome-nav hover */
+[data-theme="light"] .user-welcome-nav:hover .user-welcome-nav__greeting {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .user-welcome-nav:hover .user-welcome-nav__subtitle {
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .user-welcome-nav:hover .user-welcome-nav__nav-label {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .user-welcome-nav:hover .user-welcome-nav__nav-icon {
+  color: white;
+}
+
 /* Remove text shadows for all black text in light mode */
 [data-theme="light"] h1,
 [data-theme="light"] h2,
@@ -2797,10 +2807,19 @@ main {
   text-align: center;
 }
 
-.user-welcome-nav:hover .user-welcome-nav__greeting,
-.user-welcome-nav:hover .user-welcome-nav__subtitle,
+.user-welcome-nav:hover .user-welcome-nav__greeting {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.user-welcome-nav:hover .user-welcome-nav__subtitle {
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
 .user-welcome-nav:hover .user-welcome-nav__nav-label {
   color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .user-welcome-nav:hover .user-welcome-nav__nav-icon {
